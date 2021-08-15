@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { magento } from '../magento';
-import { getCart } from './RestActions';
+import { getCart,createCustomerCart  } from './RestActions';
+// import { createCustomerCart  } from './Re';
 import {
   MAGENTO_PASSWORD_RESET_LOADING,
   MAGENTO_PASSWORD_RESET_SUCCESS,
@@ -22,6 +23,7 @@ import {
 } from '../navigation/routes';
 import { logError } from '../helper/logger';
 
+
 export const signIn = customer => async dispatch => {
   try {
     dispatch({ type: MAGENTO_CREATE_CUSTOMER_LOADING, payload: true });
@@ -35,6 +37,9 @@ export const signIn = customer => async dispatch => {
       if (token.message) {
         authFail(dispatch, token.message);
       } else {
+
+        dispatch({ type: MAGENTO_AUTH_LOADING, payload: false });
+
         authSuccess(dispatch, token);
       }
     } else if (response.message) {
@@ -50,7 +55,7 @@ export const signIn = customer => async dispatch => {
 
 export const auth = (username, password) => async dispatch => {
   try {
-    dispatch({ type: MAGENTO_AUTH_LOADING, payload: true });
+    // dispatch({ type: MAGENTO_AUTH_LOADING, payload: true });
     const response = await magento.guest.auth(username, password);
     console.log('token');
     magento.setCustomerToken(response);
@@ -59,6 +64,7 @@ export const auth = (username, password) => async dispatch => {
     } else {
       authSuccess(dispatch, response);
       dispatch({ type: MAGENTO_LOGIN_SUCCESS });
+      dispatch(getCart());
     }
   } catch (e) {
     logError(e);
@@ -71,9 +77,10 @@ const authSuccess = async (dispatch, token) => {
 
   try {
     await AsyncStorage.setItem('customerToken', token);
-    dispatch({ type: MAGENTO_AUTH_LOADING, payload: false });
+    //dispatch({ type: MAGENTO_AUTH_LOADING, payload: false });
     dispatch(getCart());
     NavigationService.navigate(NAVIGATION_ACCOUNT_STACK_PATH);
+    console.log("token here " + token);
   } catch (e) {
     logError(e);
     authFail(dispatch, 'Something went wrong. Pleas try again later.');
@@ -123,17 +130,54 @@ export const updatePasswordResetUI = () => async dispatch => {
   dispatch({ type: MAGENTO_PASSWORD_RESET_LOADING, payload: false });
 };
 
+// store.dispatch(setCurrentCustomer(customer));
 export const currentCustomer = () => async dispatch => {
-  try {
-    const customer = await magento.customer.getCurrentCustomer();
-    dispatch({
-      type: MAGENTO_CURRENT_CUSTOMER,
-      payload: customer,
-    });
-  } catch (error) {
-    logError(error);
+  const customerToken = await AsyncStorage.getItem('customerToken');
+  magento.setCustomerToken(customerToken);
+ console.log("customerToken inside the currentCustomer() function ----------------------->"+ customerToken)
+  if (customerToken) {
+    try {
+      const customer = await magento.customer.getCurrentCustomer();
+      dispatch({
+        type: MAGENTO_CURRENT_CUSTOMER,
+        payload: customer,
+      });
+      // createCustomerCart();
+      // dispatch(getCart());
+      // const { customer } = getState().account;
+        if (customer && customer.id) {
+          dispatch(createCustomerCart(customer.id));
+          dispatch(getCart());
+
+        }
+   
+      console.log("customer is ----------------------------------->" + customer.firstname);
+    
+    } catch (error) {
+      console.log('unable to retrieve current customer', error);
+      logError(error);
+    }
   }
+
+
+ 
 };
+
+
+
+
+
+// export const currentCustomer = () => async dispatch => {
+//   try {
+//     const customer = await magento.customer.getCurrentCustomer();
+//     dispatch({
+//       type: MAGENTO_CURRENT_CUSTOMER,
+//       payload: customer,
+//     });
+//   } catch (error) {
+//     logError(error);
+//   }
+// };
 
 export const setCurrentCustomer = customer => ({
   type: MAGENTO_CURRENT_CUSTOMER,
