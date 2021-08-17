@@ -4,7 +4,6 @@ import { View, StyleSheet } from 'react-native';
 import { Text } from '../../common';
 import { Spacer } from 'react-native-markup-kit';
 import { AirbnbRating, Rating } from 'react-native-ratings';
-import moment from 'moment';
 import Typography from '../../../theme/typography';
 
 const CustomerReviews = ({ reviews }) => {
