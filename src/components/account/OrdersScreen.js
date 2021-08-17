@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { TouchableOpacity, View, FlatList, RefreshControl } from 'react-native';
 import PropTypes from 'prop-types';
