@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button, Text } from '../common';
-import { logout, currentCustomer } from '../../actions';
+import { logout, currentCustomer, currentCustomerT } from '../../actions';
 import {
   NAVIGATION_ORDERS_PATH,
   NAVIGATION_ADDRESS_SCREEN_PATH,
@@ -22,8 +22,10 @@ const Account = ({
   useEffect(() => {
     // ComponentDidMount
     if (!customer) {
-      _currentCustomer();
-    }
+      _currentCustomer();}
+    // }else if (!customer){
+    //   currentCustomerT();
+    // }
   }, [_currentCustomer, customer]);
 
   const onLogoutPress = () => {

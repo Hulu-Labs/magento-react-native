@@ -16,8 +16,19 @@ import {
 } from '../../navigation/routes';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
+import {
+
+  updateAccountAddressUI,
+  
+} from '../../actions';
 
 const Login = ({ loading, error, success, navigation, auth: _auth }) => {
+
+  componentWillUnmount = () => {
+    this.props.updateAccountAddressUI('error', false);
+  };
+
+
   const theme = useContext(ThemeContext);
   // Internal State
   const [email, setEmail] = useState('');
@@ -60,15 +71,33 @@ const Login = ({ loading, error, success, navigation, auth: _auth }) => {
       </View>
     );
   };
+  // var error_message;
 
   const renderMessages = () => {
     if (error) {
-      return <Text style={styles.error(theme)}>{error}</Text>;
+      return <Text style={styles.error(theme)}>
+        
+        {error} 
+        {/* {error_message = null}
+        {error = error_message} */}
+        
+        </Text>;
+
+        // error_message = "";
+        // error = error_message;
+      
     }
 
     if (success) {
       return <Text style={styles.success(theme)}>{success}</Text>;
     }
+
+    if(!error){
+      return ;
+    }
+    // else {
+    //   return ;
+    // }
   };
 
   return (
@@ -168,4 +197,5 @@ Login.defaultProps = {
   loading: false,
 };
 
-export default connect(mapStateToProps, { auth })(Login);
+export default connect(mapStateToProps, { auth,   updateAccountAddressUI,
+})(Login);

@@ -151,12 +151,15 @@ export const currentCustomer = () => async dispatch => {
 
         }
    
-      console.log("customer is ----------------------------------->" + customer.firstname);
+      console.log("customer is ----------------------------------->" + customer.firstname + " and customer id is " + customer.id);
     
     } catch (error) {
       console.log('unable to retrieve current customer', error);
       logError(error);
     }
+  }else {
+    console.log("login screen render");
+    logout();
   }
 
 
@@ -167,17 +170,19 @@ export const currentCustomer = () => async dispatch => {
 
 
 
-// export const currentCustomer = () => async dispatch => {
-//   try {
-//     const customer = await magento.customer.getCurrentCustomer();
-//     dispatch({
-//       type: MAGENTO_CURRENT_CUSTOMER,
-//       payload: customer,
-//     });
-//   } catch (error) {
-//     logError(error);
-//   }
-// };
+export const currentCustomerT = () => async dispatch => {
+  try {
+    const customer = await magento.customer.getCurrentCustomer();
+    dispatch({
+      type: MAGENTO_CURRENT_CUSTOMER,
+      payload: customer,
+    });
+    console.log("customer is ----------------------------------->" + customer.firstname);
+
+  } catch (error) {
+    logError(error);
+  }
+};
 
 export const setCurrentCustomer = customer => ({
   type: MAGENTO_CURRENT_CUSTOMER,

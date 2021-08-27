@@ -2,6 +2,11 @@ export const MAGENTO_INIT = 'magento_init';
 export const MAGENTO_INIT_ERROR = 'magento_init_error';
 export const MAGENTO_STORE_CONFIG = 'magento_store_config';
 export const MAGENTO_GET_COUNTRIES = 'magento_get_countries';
+// ################
+
+export const MAGENTO_GET_COUNTRIES_BY_COUNTRY_ID = 'magento_get_countries_by_country_id'
+
+// ################
 export const MAGENTO_GET_CURRENCY = 'magento_get_currency';
 
 export const MAGENTO_GET_CATEGORY_TREE = 'magento_get_category_tree';
@@ -35,6 +40,11 @@ export const MAGENTO_ADD_SHIPPING_TO_CART = 'magento_add_shipping_to_cart';
 export const MAGENTO_GET_CART_PAYMENT_METHODS =
   'magento_get_cart_payment_methods';
 export const MAGENTO_CART_ITEM_PRODUCT = 'magento_cart_item_product';
+// **********************
+
+export const MAGENTO_GET_GUEST_CART_ITEMS = 'magento_get_guest_cart_items';
+
+// ************************
 export const MAGENTO_PLACE_GUEST_CART_ORDER = 'magento_place_guest_cart_order';
 export const MAGENTO_ERROR_MESSAGE_CART_ORDER =
   'magento_error_massage_cart_order';

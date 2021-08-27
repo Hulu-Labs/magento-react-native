@@ -1,6 +1,13 @@
+import { magento } from '../..';
 import { CUSTOMER_TYPE } from '../../types';
 
 export default magento => ({
+//   {URL}/rest/V1/guest-carts/{guest-card-id}
+// Param - {
+//   "customerId": 3,
+//   "storeId": 1
+// }
+  mergeCartFromGuest: () => magento.put(`/V1/guest-carts/${cartId}`, customerId, undefined, CUSTOMER_TYPE),
   getCurrentCustomer: () =>
     magento.get('/V1/customers/me', undefined, undefined, CUSTOMER_TYPE),
 

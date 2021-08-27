@@ -6,6 +6,8 @@ import {
   MAGENTO_STORE_CONFIG,
   MAGENTO_GET_CURRENCY,
   MAGENTO_GET_COUNTRIES,
+  MAGENTO_GET_COUNTRIES_BY_COUNTRY_ID,
+  MAGENTO_GET_GUEST_CART_ITEMS
 } from '../actions/types';
 import { magento } from '../magento';
 
@@ -13,6 +15,8 @@ const INITIAL_STATE = {
   magento: null,
   storeConfig: null,
   countries: null,
+  countryName: null,
+  cart: [],
   currency: {
     default_display_currency_code: '',
     default_display_currency_symbol: '',
@@ -73,6 +77,21 @@ export default (state = INITIAL_STATE, action) => {
     case MAGENTO_GET_COUNTRIES: {
       return { ...state, countries: action.payload };
     }
+    // ###############
+
+    case MAGENTO_GET_COUNTRIES_BY_COUNTRY_ID: {
+      
+      return { ...state, 
+        countryName : action.payload.name} ;
+    }
+
+
+    case MAGENTO_GET_GUEST_CART_ITEMS : {
+      return {
+        ...state, cart : action.payload
+      }
+    }
+    // ###############
     case MAGENTO_INIT:
       return { ...state, magento: action.payload };
     case MAGENTO_INIT_ERROR:

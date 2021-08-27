@@ -11,6 +11,7 @@ import {
 import { Input, Spinner, ModalSelect, Button, Text } from '../common';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
+import { onChange } from 'react-native-reanimated';
 
 class AddAccountAddress extends Component {
   static contextType = ThemeContext;
@@ -122,7 +123,7 @@ class AddAccountAddress extends Component {
 
   renderRegions = () => {
     const theme = this.context;
-    const { countryId, countries } = this.props;
+    const { countryId, countries, region} = this.props;
     if (countryId && countryId.length && countries && countries.length) {
       const country = countries.find(item => item.id === countryId);
       if (country && country.available_regions) {
@@ -131,11 +132,16 @@ class AddAccountAddress extends Component {
           key: value.id,
         }));
 
+        const label = region?.region
+          ? region?.region
+          : translate('common.region'); 
+
         return (
           <ModalSelect
+            withLabel={false}
             disabled={data.length === 0}
             key="regions"
-            label={translate('common.region')}
+            label={label}
             attribute="Region"
             value="Region"
             data={data}
@@ -163,37 +169,48 @@ class AddAccountAddress extends Component {
   renderCountries = () => {
     const theme = this.context;
     const { countries, countryId } = this.props;
+  
 
-    if (!countries || !countries.length) {
+    if(!countries || !countries.length){
       return (
         <Input
+          // label={translate('common.country')}
           value={this.props.country}
           placeholder={translate('common.country')}
           onChangeText={value => this.updateUI('country', value)}
-          containerStyle={styles.inputContainer(theme)}
         />
       );
     }
 
+  
     const data = countries.map(value => ({
       label: value.full_name_locale,
       key: value.id,
     }));
 
     const country = countries.find(item => item.id === countryId);
+
     const label = country
       ? country.full_name_locale
       : translate('common.country');
 
+      console.log(label)
+
+       
     return (
       <ModalSelect
+        withLabel={false}
         disabled={data.length === 0}
         key="countries"
-        label={label}
+        // selectedValue={label}
+        
+        label={label
+          }
+        // {console.log(label.length)}
         attribute={translate('common.country')}
         value={translate('common.country')}
         data={data}
-        onChange={this.countrySelect}
+        onChange={this.countrySelect.bind(this)}
         style={styles.inputContainer(theme)}
       />
     );
