@@ -8,19 +8,22 @@ import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
 
 // This file name should be Signup
-const Signin = ({ loading, error, success, signIn: _signIn }) => {
+const Signin = ({ loading, error_signup, success, signIn: _signIn }) => {
   const theme = useContext(ThemeContext);
   // Internal State
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isClicked, setIsClicked] = useState(false);
+
   // Reference
   const lastnameInput = useRef(null);
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
   const onCreateAccountPress = () => {
+
     // TODO: add password validation check
     const customer = {
       customer: {
@@ -29,10 +32,13 @@ const Signin = ({ loading, error, success, signIn: _signIn }) => {
         lastname,
       },
       password,
+      
     };
+    // error= null;
     _signIn(customer);
   };
-
+  
+ 
   const renderButtons = () => {
     if (loading) {
       return <Spinner />;
@@ -43,15 +49,24 @@ const Signin = ({ loading, error, success, signIn: _signIn }) => {
         disabled={
           firstname === '' || lastname === '' || email === '' || password === ''
         }
-        onPress={onCreateAccountPress}>
+        onPress={onCreateAccountPress} >
         {translate('signup.createAccountButton')}
       </Button>
     );
   };
 
   const renderMessages = () => {
-    if (error) {
-      return <Text style={styles.error(theme)}>{error}</Text>;
+    if(firstname === '' || lastname === '' || email === '' || password === ''){
+      if(error_signup){
+        
+        error_signup = ""
+        return;
+      }
+    }
+    
+    
+    if (error_signup) {
+      return <Text style={styles.error(theme)}>{error_signup}</Text>;
     }
 
     if (success) {
@@ -163,20 +178,20 @@ const styles = StyleSheet.create({
 
 Signin.propTypes = {
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.oneOfType(PropTypes.string, null),
+  error_signup: PropTypes.oneOfType(PropTypes.string, null),
   success: PropTypes.oneOfType(PropTypes.string, null),
   signIn: PropTypes.func.isRequired,
 };
 
 Signin.defaultProps = {
-  error: null,
+  error_signup: null,
   success: null,
 };
 
 const mapStateToProps = ({ customerAuth }) => {
-  const { error, success, loading } = customerAuth;
+  const { error_signup, success, loading } = customerAuth;
 
-  return { error, success, loading };
+  return { error_signup, success, loading };
 };
 
 export default connect(mapStateToProps, { signIn })(Signin);

@@ -21,7 +21,6 @@ import {
   MAGENTO_ADD_CART_BILLING_ADDRESS,
   MAGENTO_GET_CART_SHIPPING_METHODS,
   MAGENTO_GET_CART_PAYMENT_METHODS,
-  MAGENTO_GET_GUEST_CART_ITEMS,
   MAGENTO_PLACE_GUEST_CART_ORDER,
   MAGENTO_ADD_SHIPPING_TO_CART,
   MAGENTO_ADD_TO_CART,
@@ -449,43 +448,31 @@ export const getCart =
       let cart, items, data;
       var  tempItem = {}, tempItems = [], cart_id;
       let cartId = await AsyncStorage.getItem('cartId');
+      console.log(" cart id in getcart ()                  " + cartId);
       if (magento.isCustomerLogin()) {
+
+
+        const customer = await magento.customer.getCurrentCustomer();
+        console.log(" customer id i s                   " + customer.id);
+        
+        
+
         if (cartId) {
           /*Merge Cart*/
           /*the code to merge cart will be here*/
-
-        // list of items inside guest cart
-        
-         items = await magento.guest.getGuestCartItems(cartId);
-       
-         // store each of the item's sku, qty and quote_id inside an array
-
-         for(var i = 0; i < items.length; i++){
-       
-          tempItem.cartItem = ({sku, qty, quote_id} = items[i], {sku, qty, quote_id})
-          tempItems.push(tempItem);
-
-         }
-        //  // guest cart removed from storage
-        //  cart_id = cartId;
-        //  console.log("     quote id is        " + cart_id)
-
-        // //  for(var k = 0 ; k < tempItems.length; k++){
-        // //   data = await magento.customer.addItemToCart(tempItems[k]);
-        // //   dispatch({ type: MAGENTO_GET_CART, payload: data });
-        // // }
+          console.log("        get cart   " + cartId)
+          // guest cart merge with logged in customer cart api
+              await magento.customer.assignGuestCartToCustomer(
+              cartId,
+              customer.id,
+            );
+            console.log(" here i am                       check")
+         
           AsyncStorage.removeItem('cartId');
         }
 
         cart = await magento.customer.getCustomerCart();
-        // console.log("     cart id is        " + cart.cartId)
 
-        // // quote_id = cart_id;
-        // //adding the item's from the stored array to the customer cart
-        for(var k = 0 ; k < tempItems.length; k++){
-          await magento.customer.addItemToCart(tempItems[k]);
-        }
-       
       } else {
         if (cartId) {
           try {

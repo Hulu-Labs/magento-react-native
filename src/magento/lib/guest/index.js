@@ -9,10 +9,6 @@ export default magento => ({
   getGuestCart: cartId =>
     magento.get(`/V1/guest-carts/${cartId}`, undefined, undefined, GUEST_TYPE),
 
-  getGuestCartItems: cartId =>
-  magento.get(`/V1/guest-carts/${cartId}/items`, undefined, undefined, GUEST_TYPE),
-
-
   addCouponToCart: (cartId, couponCode) =>
     magento.put(
       `/V1/guest-carts/${cartId}/coupons/${couponCode}`,
@@ -82,14 +78,6 @@ export default magento => ({
 
   getCountries: () =>
     magento.get('/V1/directory/countries', undefined, undefined, GUEST_TYPE),
-
-  getCountriesByCountryId: countryId =>
-    magento.get(
-      `/V1/directory/countries/${countryId}`,
-      undefined,
-      undefined,
-      GUEST_TYPE,
-    ),
 
   createCustomer: customer =>
     magento.post('/V1/customers', customer, GUEST_TYPE),

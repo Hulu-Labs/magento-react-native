@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useRef, Component } from 'react';
 import {
   View,
   StyleSheet,
@@ -16,30 +16,24 @@ import {
 } from '../../navigation/routes';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
-import {
 
-  updateAccountAddressUI,
+
+const Login = ({ loading, error_login, success, navigation, auth: _auth }) => {
+
   
-} from '../../actions';
-
-const Login = ({ loading, error, success, navigation, auth: _auth }) => {
-
-  componentWillUnmount = () => {
-    this.props.updateAccountAddressUI('error', false);
-  };
-
-
+  
+  
   const theme = useContext(ThemeContext);
   // Internal State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isClicked, setIsClicked] = useState(false);
   // Reference
   const passwordInput = useRef();
 
   const onLoginPress = () => {
     _auth(email, password);
   };
-
   const onSigninPress = () => {
     navigation.navigate(NAVIGATION_SIGNIN_PATH);
   };
@@ -71,33 +65,31 @@ const Login = ({ loading, error, success, navigation, auth: _auth }) => {
       </View>
     );
   };
-  // var error_message;
+  
 
   const renderMessages = () => {
-    if (error) {
-      return <Text style={styles.error(theme)}>
+    
+    if(email === '' || password === ''){
+      if(error_login){
         
-        {error} 
-        {/* {error_message = null}
-        {error = error_message} */}
-        
-        </Text>;
-
-        // error_message = "";
-        // error = error_message;
-      
+        error_login = "";
+        return;
+      }
     }
+    
+    if(error_login){
+      return <Text style={styles.error(theme)}>
+      {error_login} 
+     
+      </Text>;
+    }
+   
 
     if (success) {
       return <Text style={styles.success(theme)}>{success}</Text>;
     }
 
-    if(!error){
-      return ;
-    }
-    // else {
-    //   return ;
-    // }
+    
   };
 
   return (
@@ -179,23 +171,22 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ customerAuth }) => {
-  const { error, success, loading } = customerAuth;
+  const { error_login, success, loading } = customerAuth;
 
-  return { error, success, loading };
+  return { error_login, success, loading };
 };
 
 Login.propTypes = {
   loading: PropTypes.bool,
-  error: PropTypes.oneOfType(PropTypes.string, null),
+  error_login: PropTypes.oneOfType(PropTypes.string, null),
   success: PropTypes.oneOfType(PropTypes.string, null),
   auth: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {
-  error: null,
+  error_login: null,
   success: null,
   loading: false,
 };
 
-export default connect(mapStateToProps, { auth,   updateAccountAddressUI,
-})(Login);
+export default connect(mapStateToProps, { auth,})(Login);

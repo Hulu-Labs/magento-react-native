@@ -7,7 +7,13 @@ export default magento => ({
 //   "customerId": 3,
 //   "storeId": 1
 // }
-  mergeCartFromGuest: () => magento.put(`/V1/guest-carts/${cartId}`, customerId, undefined, CUSTOMER_TYPE),
+ assignGuestCartToCustomer: (cartId, customerId, storeId = 1) => magento.put(
+    `/V1/guest-carts/${cartId}`, {
+      customerId,
+      storeId: storeId || magento.configuration.store,
+    },
+    CUSTOMER_TYPE,
+  ), 
   getCurrentCustomer: () =>
     magento.get('/V1/customers/me', undefined, undefined, CUSTOMER_TYPE),
 
