@@ -69,7 +69,7 @@ export const auth = (username, password) => async dispatch => {
     }
   } catch (e) {
     logError(e);
-    authFail(dispatch, "the problem is in here");
+    authFail(dispatch, e.message);
    
   }
 };
