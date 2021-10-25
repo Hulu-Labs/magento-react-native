@@ -11,7 +11,7 @@ import { priceSignByCode } from '../../helper/price';
 const OrderListItem = ({ item }) => {
   const theme = useContext(ThemeContext);
   const currencySymbol = priceSignByCode(item.order_currency_code);
-
+  console.log(currencySymbol);
   const openOrdersScreen = () => {
     NavigationService.navigate(NAVIGATION_ORDER_PATH, {
       item,
@@ -67,7 +67,9 @@ const styles = StyleSheet.create({
 
 OrderListItem.propTypes = {
   item: PropTypes.object.isRequired,
-  currencySymbol: PropTypes.string.isRequired,
+  // currencySymbol: PropTypes.string.isRequired => removed isRequired 
+  // The prop `currencySymbol` is marked as required in `Price`, no need to make it required here
+  currencySymbol: PropTypes.string,
 };
 
 OrderListItem.defaultProps = {};
