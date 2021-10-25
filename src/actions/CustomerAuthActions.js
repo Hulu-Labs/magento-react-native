@@ -23,6 +23,7 @@ import {
   NAVIGATION_LOGIN_STACK_PATH,
 } from '../navigation/routes';
 import { logError } from '../helper/logger';
+import { string } from 'prop-types';
 
 
 export const signIn = customer => async dispatch => {
@@ -39,8 +40,11 @@ export const signIn = customer => async dispatch => {
         signinFail(dispatch, token.message);
       } else {
 
-       magento.setCustomerToken(token);
+        magento.setCustomerToken(token);
         authSuccess(dispatch, token);
+        // dispatch({ type: MAGENTO_LOGIN_SUCCESS });
+        //  It sets cartId: false
+        dispatch({ type: MAGENTO_LOGIN_SUCCESS });
         dispatch(getCart());
       }
     } else if (response.message) {
@@ -93,10 +97,13 @@ const authSuccess = async (dispatch, token) => {
     dispatch({ type: MAGENTO_AUTH_LOADING, payload: false });
     NavigationService.navigate(NAVIGATION_ACCOUNT_STACK_PATH);
 
+    // Only Creats new cartId if cartId is set to false
+    // [ which is when user logs in succesfully ]
+      if(!cartId){
     const cartId = await magento.admin.getCart(customer.id);
     dispatch({ type: MAGENTO_CREATE_CART, payload: cartId });
-
-    console.log("                 cartid is " + cartId);
+    }
+    console.log("                 cartid is ---->" + cartId);
 
     const fetchedCart = await magento.customer.getCustomerCart();
     console.log("               fetched cart is " + fetchedCart)
@@ -174,6 +181,9 @@ export const updatePasswordResetUI = () => async dispatch => {
 };
 
 export const currentCustomer = () => async dispatch => {
+  console.log("i am getting in to current custommer           ")
+  const customerToken = await AsyncStorage.getItem('customerToken');
+  magento.setCustomerToken(customerToken);
   try {
     const customer = await magento.customer.getCurrentCustomer();
     dispatch({
