@@ -19,16 +19,26 @@ import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
 import { priceSignByCode } from '../../helper/price';
 import { Row, Spacer } from 'react-native-markup-kit';
+import { getListofServiceProviders } from 'hover-tester-react';
+import { App } from 'hover-tester-react';
+import RadioForm from 'react-native-simple-radio-button';
+
+
+
 
 class CheckoutTotals extends Component {
   static contextType = ThemeContext;
 
   state = {
     couponCodeInput: '',
+    providers: null,
+    selectedProvider: '',
+
   };
 
+
   onPlacePressed = () => {
-    const { cartId, selectedPayment } = this.props;
+    const { cartId, selectedPayment, totals } = this.props;
     const payment = {
       paymentMethod: {
         // po_number: selectedPayment.code,
@@ -42,9 +52,12 @@ class CheckoutTotals extends Component {
         // 	]
         // }
       },
+
     };
     this.props.checkoutCustomerNextLoading(true);
     this.props.placeGuestCartOrder(cartId, payment);
+
+
   };
 
   goHome = () => {
@@ -65,8 +78,10 @@ class CheckoutTotals extends Component {
       currencyRate,
     } = this.props;
 
+
     return (
       <View style={styles.totalsStyle}>
+
         <View style={styles.row}>
           <Text>{`${translate('common.subTotal')}: `}</Text>
           <Price
@@ -120,10 +135,10 @@ class CheckoutTotals extends Component {
   renderButton() {
     const theme = this.context;
     const { payments } = this.props;
+
     if (!payments.length) {
       return <View />;
     }
-
     if (this.props.loading) {
       return (
         <View style={styles.nextButtonStyle}>
@@ -144,11 +159,31 @@ class CheckoutTotals extends Component {
   }
 
   componentDidMount() {
+    let api = getListofServiceProviders();
+    api
+      .then(response => {
+        console.log('getting data from axios', response);
+        this.setState({
+          providers: response
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
     if (this.props?.totals?.coupon_code) {
       this.setState({
         couponCodeInput: this.props?.totals?.coupon_code,
       });
     }
+
+
+
+  }
+  onProviderSelect = (value) => {
+    this.setState({ selectedProvider: value });
+    console.log(value + " you have selected the value id ")
+
   }
 
   componentDidUpdate(prevProps) {
@@ -228,10 +263,48 @@ class CheckoutTotals extends Component {
     );
   };
 
+  // #################
+
+  renderPaymentMethods = () => {
+    const { providers } = this.state;
+    if (this.props.selectedPayment.code === "banktransfer") {
+      const radioProps = providers ? providers.map(provider => ({
+        label: provider.name,
+        value: provider.id,
+      })) : <Text> Loading ... </Text>
+
+      return (
+        <RadioForm
+          radio_props={radioProps}
+          initial={0}
+          animation={false}
+          onPress={value => {
+            this.onProviderSelect(value);
+          }}
+        />
+      );
+    }
+
+
+  }
+
+  // ####################
   render() {
     const theme = this.context;
+
     return (
       <View style={styles.container(theme)}>
+        {console.log(this.props.selectedPayment.code + " this is the selected payment you chose")}
+        {
+
+          this.renderPaymentMethods()
+
+
+
+        }
+
+        {this.state.selectedProvider == 1 ? <App phone={this.state.cartId} ammount={this.props.totals} reason={this.props.cartId} /> : <Text></Text>}
+
         {this.renderCoupon()}
         {this.renderTotals()}
         {this.renderButton()}
