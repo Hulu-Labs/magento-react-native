@@ -37,9 +37,7 @@ export const signIn = customer => async dispatch => {
       if (token.message) {
         authFail(dispatch, token.message);
       } else {
-
-        dispatch({ type: MAGENTO_AUTH_LOADING, payload: false });
-
+        magento.setCustomerToken(token);
         authSuccess(dispatch, token);
       }
     } else if (response.message) {
