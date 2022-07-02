@@ -15,7 +15,7 @@ export default {
   defaultButtonHeight: 40,
   defaultInputBoxHeight: 40,
   productListItemInBetweenSpace: 1,
-  productListItemImageHeight: 100,
+  productListItemImageHeight: 200,
   /**
    * HomeScreen and it's component related constants
    */

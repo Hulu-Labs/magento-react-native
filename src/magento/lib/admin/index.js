@@ -50,6 +50,7 @@ export default magento => ({
 
   getCategoriesTree: () =>
     magento.get('/V1/categories', undefined, undefined, ADMIN_TYPE),
+    // magento.get('V1/mma/categories', undefined, undefined, ADMIN_TYPE),
 
   getCategory: id =>
     magento.get(`/V1/categories/${id}`, undefined, undefined, ADMIN_TYPE),

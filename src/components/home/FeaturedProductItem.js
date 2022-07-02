@@ -69,17 +69,40 @@ const FeaturedProductItem = ({
 const styles = StyleSheet.create({
   container: theme => ({
     padding: theme.spacing.tiny,
-    width: theme.dimens.WINDOW_WIDTH * 0.32,
+    width: theme.dimens.WINDOW_WIDTH * 0.5,
+    
   }),
   containerStyle: theme => ({
     flexDirection: 'column',
     flex: 1,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+
+    // borderWidth: 1,
+    // borderColor: theme.colors.test,
     backgroundColor: theme.colors.surface,
     borderRadius: theme.dimens.borderRadius,
     alignItems: 'center',
     justifyContent: 'center',
+
+    // margin : 15,
+    // borderRadius : 15,
+    backgroundColor : '#FFFFFF',
+    // overflow : 'hidden',
+
+    width: '90%',
+    
+// backgroundColor: '#fafafa',
+borderRadius: 20,
+alignSelf: 'center',
+paddingHorizontal: 10,
+paddingBottom: 10,
+shadowColor: '#000',
+shadowOffset: {
+  width: 0,
+  height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+elevation: 3,
   }),
   infoStyle: {
     flexDirection: 'column',

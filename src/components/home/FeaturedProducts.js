@@ -56,8 +56,10 @@ FeaturedProducts.defaultProps = {
 
 const styles = StyleSheet.create({
   container: theme => ({
-    height: theme.dimens.WINDOW_HEIGHT * 0.3,
+    height: theme.dimens.WINDOW_HEIGHT * 0.4,
+    // width: theme.dimens.WINDOW_WIDTH * 0.5,
     paddingTop: 10,
+    
   }),
   title: {
     textAlign: 'center',

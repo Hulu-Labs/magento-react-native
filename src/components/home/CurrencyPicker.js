@@ -38,13 +38,14 @@ const CurrencyPicker = ({
       data={data}
       onChange={onChange}
       style={styles.currencyContainer}
+      name="dollar"
     />
   );
 };
 
 const styles = {
   currencyContainer: {
-    width: 50,
+    width: 80,
     marginEnd: 10,
   },
 };

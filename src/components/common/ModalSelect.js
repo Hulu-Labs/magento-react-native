@@ -4,7 +4,7 @@ import ModalSelector from 'react-native-modal-selector';
 import PropTypes from 'prop-types';
 import { Input } from './Input';
 
-const ModalSelect = ({ data, disabled, label, onChange, attribute, style, withLabel = true, }) => {
+const ModalSelect = ({ data, disabled, label, onChange, attribute, style, withLabel = true, name }) => {
   const [value, setValue] = useState('');
 
   const _onChange = option => {
@@ -32,6 +32,7 @@ const ModalSelect = ({ data, disabled, label, onChange, attribute, style, withLa
           editable={false}
           placeholder={label}
           value={value}
+          name={name}
         />
       </ModalSelector>
     </View>

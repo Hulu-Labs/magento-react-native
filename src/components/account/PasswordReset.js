@@ -70,6 +70,7 @@ const PasswordReset = ({
         editable={!loading}
         onSubmitEditing={onResetPress}
         onChangeText={setEmail}
+        name="envelope"
       />
       {renderButtons()}
       {renderMessages()}

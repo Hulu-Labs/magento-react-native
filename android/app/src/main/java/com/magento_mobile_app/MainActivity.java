@@ -1,6 +1,8 @@
 package com.magento_mobile_app;
 
 import com.facebook.react.ReactActivity;
+import com.hulupaycorern.HulupayCoreRnModule;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +13,10 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "magento_mobile_app";
+  }
+   @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    HulupayCoreRnModule.initializeHover(this.getApplicationContext());
   }
 }

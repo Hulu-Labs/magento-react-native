@@ -35,3 +35,8 @@ const getParamsFromSearchCriteriaItem = (
   [`searchCriteria[filterGroups][${filterGroups}][filters][${filters}][condition_type]`]:
     searchCriteria.conditionType,
 });
+
+export const convertToString = (data) => {
+  return data.toString(); 
+
+}

@@ -91,6 +91,28 @@ const styles = {
     flexDirection: 'row',
     flex: 1,
     backgroundColor: theme.colors.surface,
+    width : '90%',
+        // height : 200,
+        margin : 10,
+        // borderRadius : 15,
+        backgroundColor : '#FFFFFF',
+        // overflow : 'hidden',
+
+        width: '90%',
+    // backgroundColor: '#fafafa',
+    borderRadius: 20,
+    alignSelf: 'center',
+    paddingHorizontal: 14,
+    paddingBottom: 0,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 15,
+  
   }),
   infoStyle: {
     flexDirection: 'column',
@@ -104,7 +126,7 @@ const styles = {
   imageStyle: theme => ({
     height: theme.dimens.productListItemImageHeight,
     margin: theme.spacing.small,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: theme.colors.border,
     width: null,
   }),

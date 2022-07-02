@@ -5,7 +5,7 @@ import CategoryTreeListItem from './CategoryTreeListItem';
 
 const CategoryTreeList = ({ categories, refreshControl }) => {
   const renderItem = category => {
-    return <CategoryTreeListItem category={category.item} expanded={false} />;
+    return <CategoryTreeListItem category={category.item} expanded={false} selected={null} />;
   };
 
   return (
@@ -16,6 +16,7 @@ const CategoryTreeList = ({ categories, refreshControl }) => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
+      {console.log(categories, "from catagory tree list item")}
     </SafeAreaView>
   );
 };

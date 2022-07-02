@@ -17,7 +17,7 @@ class HomeScreen extends Component {
   static contextType = ThemeContext;
 
   static navigationOptions = ({ navigation }) => ({
-    title: translate('home.title'),
+    title: "HULU GEBEYA",
     headerBackTitle: ' ',
     headerLeft: () => (
       <MaterialHeaderButtons>

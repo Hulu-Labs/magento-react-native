@@ -59,11 +59,11 @@ const ProductList = ({
     <ProductListItem
       viewContainerStyle={{
         width: theme.dimens.WINDOW_WIDTH / COLUMN_COUNT,
-        borderRightColor: theme.colors.border,
-        borderRightWidth:
-          index % COLUMN_COUNT !== COLUMN_COUNT - 1
-            ? theme.dimens.productListItemInBetweenSpace
-            : 0,
+        // borderRightColor: theme.colors.border,
+        // borderRightWidth:
+        //   index % COLUMN_COUNT !== COLUMN_COUNT - 1
+        //     ? theme.dimens.productListItemInBetweenSpace
+        //     : 0,
       }}
       columnContainerStyle={styles.columnContainerStyle}
       textStyle={styles.textStyle}
@@ -157,12 +157,13 @@ const ProductList = ({
 
 const styles = StyleSheet.create({
   itemSeparator: theme => ({
-    height: theme.dimens.productListItemInBetweenSpace,
-    backgroundColor: theme.colors.border,
-    flex: 1,
+    // height: theme.dimens.productListItemInBetweenSpace,
+    // backgroundColor: theme.colors.border,
+    // flex: 1,
   }),
   container: {
     flex: 1,
+   
   },
   notFoundTextWrap: {
     flex: 1,
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
     marginLeft: theme.spacing.small,
   }),
   separator: theme => ({
-    width: 1,
+    // width: 1,
     backgroundColor: theme.colors.border,
     marginVertical: theme.spacing.small,
   }),

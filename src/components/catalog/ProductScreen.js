@@ -117,6 +117,7 @@ export const ProductScreen = props => {
         keyboardType="numeric"
         value={`${currentProduct.qtyInput}`}
         onChangeText={qty => dispatch(updateProductQtyInput(qty, product.id))}
+        name="sort-amount-asc"
       />
       <ProductOptions
         product={product}
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   }),
   inputContainer: theme => ({
-    width: 40,
+    width: 100,
     alignSelf: 'center',
     marginBottom: theme.spacing.extraLarge,
   }),

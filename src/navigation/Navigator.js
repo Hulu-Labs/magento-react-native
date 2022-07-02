@@ -36,15 +36,20 @@ import { NAVIGATION_CHECKOUT_STACK_PATH } from './routes';
 
 const defaultHeader = {
   headerStyle: {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.background,
+    elevation:0.5
+
   },
   headerTitleStyle: {
     ...theme.typography.titleTextSemiBold,
     alignSelf: 'center',
+    color:theme.colors.test
   },
   headerBackTitle: null,
-  headerTintColor: theme.colors.appbarTint,
+  headerTintColor: theme.colors.test,
   headerBackTitleVisible: false,
+  
+ 
 };
 
 const HomeStack = createStackNavigator(
@@ -156,10 +161,24 @@ const Drawer = createDrawerNavigator(
   {
     [routes.BOTTOM_TAB_NAVIGATOR]: {
       screen: MainAppNavigator,
+
     },
+    
     [routes.NAVIGATION_DRAWER_SCREEN]: {
       screen: DrawerScreen,
-      navigationOptions: { header: () => false },
+      navigationOptions: { 
+        header: () => false,
+        // background: theme.colors.test,
+        headerStyle: {
+          backgroundColor: 'red',
+        },
+        headerTintColor: 'red',
+        headerTitleStyle: {
+          color: 'red',
+        },
+        
+      },
+      
     },
   },
   {

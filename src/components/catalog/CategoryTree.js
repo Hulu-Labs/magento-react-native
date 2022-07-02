@@ -41,12 +41,21 @@ const CategoryTree = ({
 CategoryTree.navigationOptions = {
   title: 'Categories'.toUpperCase(),
   headerBackTitle: ' ',
+  headerStyle: {
+    backgroundColor: 'red',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    color: 'white',
+  },
 };
 
 const styles = {
   container: theme => ({
     flex: 1,
     backgroundColor: theme.colors.background,
+    paddingTop:60
+    // color:theme.colors.test
   }),
 };
 

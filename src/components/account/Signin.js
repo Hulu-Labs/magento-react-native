@@ -1,10 +1,10 @@
 import React, { useRef, useState, useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Spinner, Button, Text, Input } from '../common';
 import { signIn } from '../../actions';
-import { ThemeContext } from '../../theme';
+import { theme, ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
 
 // This file name should be Signup
@@ -75,7 +75,28 @@ const Signin = ({ loading, error_signup, success, signIn: _signIn }) => {
   };
 
   return (
+    <ScrollView
+    // onScroll={({nativeEvent}) => {
+    //   if (isCloseToBottom(nativeEvent)) {
+    //     enableSomeButton();
+    //   }
+    // }}
+    // scrollEventThrottle={400}
+  >
     <View style={styles.container(theme)}>
+      <View style={styles.bigCircle}></View>
+        <View style={styles.smallCircle}></View>
+        <View style={styles.centerizedView}>
+        <View style={styles.authBox(theme)}>
+        <View style={styles.logoBox}>
+            <Image source={require('../../../assets/logo.png')}  style={styles.logo}/>
+              {/* <Icon
+                color='#fff'
+                name='comments'
+                type='font-awesome'
+                size={50}
+              /> */}
+            </View>
       <Input
         autoCapitalize="none"
         underlineColorAndroid="transparent"
@@ -89,6 +110,7 @@ const Signin = ({ loading, error_signup, success, signIn: _signIn }) => {
           lastnameInput.current.focus();
         }}
         containerStyle={styles.inputContainer(theme)}
+        name="user"
       />
       <Input
         autoCapitalize="none"
@@ -106,6 +128,7 @@ const Signin = ({ loading, error_signup, success, signIn: _signIn }) => {
           emailInput.current.focus();
         }}
         containerStyle={styles.inputContainer(theme)}
+        name="user"
       />
       <Input
         autoCapitalize="none"
@@ -124,6 +147,7 @@ const Signin = ({ loading, error_signup, success, signIn: _signIn }) => {
           passwordInput.current.focus();
         }}
         containerStyle={styles.inputContainer(theme)}
+        name="envelope-o"
       />
       <Input
         autoCapitalize="none"
@@ -139,11 +163,15 @@ const Signin = ({ loading, error_signup, success, signIn: _signIn }) => {
         }}
         onSubmitEditing={onCreateAccountPress}
         containerStyle={styles.inputContainer(theme)}
+        name="lock"
       />
       {renderButtons()}
       {renderMessages()}
-      <View />
+      </View>
+      </View>
+      {/* <View /> */}
     </View>
+    </ScrollView>
   );
 };
 
@@ -164,7 +192,7 @@ const styles = StyleSheet.create({
   }),
   error: theme => ({
     color: theme.colors.error,
-    width: theme.dimens.WINDOW_WIDTH * 0.85,
+    // width: theme.dimens.WINDOW_WIDTH * 0.85,
     textAlign: 'center',
     marginTop: theme.spacing.extraLarge,
   }),
@@ -174,6 +202,64 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: theme.soacing.extraLarge,
   }),
+  bigCircle: {
+    width: Dimensions.get('window').height * 0.7,
+    height: Dimensions.get('window').height * 0.7,
+    backgroundColor: '#2CB4FB',
+    borderRadius: 1000,
+    position: 'absolute',
+    right: Dimensions.get('window').width * 0.25,
+    top: -50,
+  },
+  smallCircle: {
+    width: Dimensions.get('window').height * 0.4,
+    height: Dimensions.get('window').height * 0.4,
+    backgroundColor: '#2CB4FB',
+    borderRadius: 1000,
+    position: 'absolute',
+    bottom: Dimensions.get('window').width * -0.2,
+    right: Dimensions.get('window').width * -0.3,
+  },
+  centerizedView: {
+    width: '100%',
+    // top: '15%',
+    // left: '15%'
+    justifyContent: 'center',
+     alignSelf: 'center',
+     
+  },
+  authBox:theme=>({
+    width: '80%',
+    backgroundColor: '#fafafa',
+    borderRadius: 20,
+    alignSelf: 'center',
+    paddingHorizontal: 14,
+    paddingBottom: 30,
+    marginBottom:30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    width: theme.dimens.WINDOW_WIDTH * 0.8,
+
+    // bottom:10
+  }),
+  logo: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+
+   width:150,
+   height:60,
+   marginBottom:40,
+  //  bottom:50
+   top: 10
+   
+   },
+  
 });
 
 Signin.propTypes = {
