@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ScrollView, View, StyleSheet, RefreshControl } from 'react-native';
+import { ScrollView, View, StyleSheet, RefreshControl, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { MaterialHeaderButtons, Text, Item } from '../common';
@@ -12,6 +12,10 @@ import FeaturedProducts from './FeaturedProducts';
 import NavigationService from '../../navigation/NavigationService';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
+import Category from '../catalog/Category'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { magento } from '../../magento';
+
 
 class HomeScreen extends Component {
   static contextType = ThemeContext;
@@ -57,15 +61,24 @@ class HomeScreen extends Component {
   };
 
   renderFeatured() {
+
     return _.map(this.props.featuredProducts, (value, key) => (
-      <FeaturedProducts
-        key={`featured${key}`}
-        products={value}
-        title={this.props.featuredCategories[key].title}
-        onPress={this.onProductPress}
-        currencySymbol={this.props.currencySymbol}
-        currencyRate={this.props.currencyRate}
-      />
+      <SafeAreaView>
+        <View style={{ paddingRight: 30, paddingLeft: 30, flexDirection: 'row', justifyContent: 'space-between' }}>
+
+          <TouchableOpacity>
+            {/* <Text style={{marginTop: 20}}>See more</Text> */}
+          </TouchableOpacity>
+        </View>
+        <FeaturedProducts
+          key={`featured${key}`}
+          products={value}
+          title={this.props.featuredCategories[key].title}
+          onPress={this.onProductPress}
+          currencySymbol={this.props.currencySymbol}
+          currencyRate={this.props.currencyRate}
+        />
+      </SafeAreaView>
     ));
   }
 
@@ -97,9 +110,11 @@ class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  // HOME SCREEN BACKGROUND COLOR - container
   container: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.background,
+    // surface -> white
+    backgroundColor: theme.colors.lightGrey,
   }),
   errorContainer: {
     flex: 1,

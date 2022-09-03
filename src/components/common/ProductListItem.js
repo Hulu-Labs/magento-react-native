@@ -25,6 +25,7 @@ const ProductListItem = ({
 
   return (
     <View style={viewContainerStyle}>
+
       <TouchableOpacity
         style={[styles.containerStyle(theme), columnContainerStyle]}
         onPress={() => {
@@ -77,7 +78,7 @@ ProductListItem.propTypes = {
 };
 
 ProductListItem.defaultProps = {
-  onRowPress: () => {},
+  onRowPress: () => { },
   imageStyle: {},
   infoStyle: {},
   textStyle: {},
@@ -91,14 +92,14 @@ const styles = {
     flexDirection: 'row',
     flex: 1,
     backgroundColor: theme.colors.surface,
-    width : '90%',
-        // height : 200,
-        margin : 10,
-        // borderRadius : 15,
-        backgroundColor : '#FFFFFF',
-        // overflow : 'hidden',
+    width: '90%',
+    // height : 200,
+    margin: 10,
+    // borderRadius : 15,
+    // backgroundColor : '#FFFFFF',
+    // overflow : 'hidden',
 
-        width: '90%',
+    width: '90%',
     // backgroundColor: '#fafafa',
     borderRadius: 20,
     alignSelf: 'center',
@@ -112,7 +113,7 @@ const styles = {
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 15,
-  
+
   }),
   infoStyle: {
     flexDirection: 'column',

@@ -145,6 +145,7 @@ export const ProductScreen = props => {
           <ReviewFormContainer product={product} />
         </>
       )}
+
       <RelatedProducts
         product={product}
         currencyRate={currencyRate}
@@ -162,7 +163,8 @@ ProductScreen.navigationOptions = ({ navigation }) => ({
 const styles = StyleSheet.create({
   container: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey
   }),
   textStyle: theme => ({
     padding: theme.spacing.small,

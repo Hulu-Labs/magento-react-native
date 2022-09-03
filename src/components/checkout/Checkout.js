@@ -50,7 +50,8 @@ Checkout.navigationOptions = {
 
 const styles = {
   container: theme => ({
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
     flex: 1,
   }),
 };

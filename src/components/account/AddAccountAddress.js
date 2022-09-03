@@ -24,6 +24,10 @@ class AddAccountAddress extends Component {
     this.props.getCountries();
     this.props.resetAccountAddressUI();
 
+    this.updateUI('countryId', 'ET');
+    this.updateUI('region', 'Addis Ababa')
+    this.updateUI('city', 'Addis Ababa')
+
     if (
       this.props.customer &&
       this.props.customer.addresses &&
@@ -52,13 +56,13 @@ class AddAccountAddress extends Component {
     const regionValue =
       typeof region === 'object'
         ? {
-            region: region.region,
-            region_id: region.regionId,
-            region_code: region.regionCode,
-          }
+          region: region.region,
+          region_id: region.regionId,
+          region_code: region.regionCode,
+        }
         : {
-            region,
-          };
+          region,
+        };
 
     const data = {
       customer: {
@@ -123,7 +127,7 @@ class AddAccountAddress extends Component {
 
   renderRegions = () => {
     const theme = this.context;
-    const { countryId, countries, region} = this.props;
+    const { countryId, countries, region } = this.props;
     if (countryId && countryId.length && countries && countries.length) {
       const country = countries.find(item => item.id === countryId);
       if (country && country.available_regions) {
@@ -134,7 +138,7 @@ class AddAccountAddress extends Component {
 
         const label = region?.region
           ? region?.region
-          : translate('common.region'); 
+          : translate('common.region');
 
         return (
           <ModalSelect
@@ -159,7 +163,8 @@ class AddAccountAddress extends Component {
     return (
       <Input
         value={regionValue}
-        placeholder={translate('common.region')}
+        // placeholder={translate('common.region')}
+        placeholder="Zone"
         onChangeText={value => this.updateUI('region', value)}
         containerStyle={styles.inputContainer(theme)}
       />
@@ -169,9 +174,9 @@ class AddAccountAddress extends Component {
   renderCountries = () => {
     const theme = this.context;
     const { countries, countryId } = this.props;
-  
 
-    if(!countries || !countries.length){
+
+    if (!countries || !countries.length) {
       return (
         <Input
           // label={translate('common.country')}
@@ -182,7 +187,7 @@ class AddAccountAddress extends Component {
       );
     }
 
-  
+
     const data = countries.map(value => ({
       label: value.full_name_locale,
       key: value.id,
@@ -194,18 +199,16 @@ class AddAccountAddress extends Component {
       ? country.full_name_locale
       : translate('common.country');
 
-      console.log(label)
+    console.log(label)
 
-       
+
     return (
       <ModalSelect
         withLabel={false}
         disabled={data.length === 0}
         key="countries"
         // selectedValue={label}
-        
-        label={label
-          }
+        label={label}
         // {console.log(label.length)}
         attribute={translate('common.country')}
         value={translate('common.country')}
@@ -222,28 +225,32 @@ class AddAccountAddress extends Component {
       <View style={styles.container(theme)}>
         {this.renderCountries()}
 
-        {this.renderRegions()}
-
-        <Input
-          value={this.props.postcode}
-          placeholder={translate('common.postcode')}
-          onChangeText={value => this.updateUI('postcode', value)}
-          containerStyle={styles.inputContainer(theme)}
-        />
-
-        <Input
-          value={this.props.street}
-          placeholder={translate('common.street')}
-          onChangeText={value => this.updateUI('street', value)}
-          containerStyle={styles.inputContainer(theme)}
-        />
-
         <Input
           value={this.props.city}
           placeholder={translate('common.city')}
           onChangeText={value => this.updateUI('city', value)}
           containerStyle={styles.inputContainer(theme)}
         />
+
+        {this.renderRegions()}
+
+        <Input
+          value={this.props.postcode}
+          // placeholder={translate('common.postcode')}
+          placeholder="Woreda"
+          onChangeText={value => this.updateUI('postcode', value)}
+          containerStyle={styles.inputContainer(theme)}
+        />
+
+        <Input
+          value={this.props.street}
+          // placeholder={translate('common.street')}
+          placeholder="House No."
+          onChangeText={value => this.updateUI('street', value)}
+          containerStyle={styles.inputContainer(theme)}
+        />
+
+
 
         <Input
           value={this.props.telephone}
@@ -263,7 +270,8 @@ class AddAccountAddress extends Component {
 const styles = StyleSheet.create({
   container: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
     padding: theme.spacing.large,
   }),
   inputContainer: theme => ({

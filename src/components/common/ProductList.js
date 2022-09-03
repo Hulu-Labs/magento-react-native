@@ -45,6 +45,7 @@ const ProductList = ({
   const selector = useRef(null);
 
   const renderItemRow = ({ item, index }) => (
+
     <ProductListItem
       imageStyle={styles.imageStyle}
       viewContainerStyle={{ flex: 1 }}
@@ -77,6 +78,7 @@ const ProductList = ({
 
   const renderHeader = () => (
     <View style={styles.headerContainerStyle(theme)}>
+
       <ModalSelector
         style={styles.iconWrapper(theme)}
         data={sortData}
@@ -152,7 +154,7 @@ const ProductList = ({
     }
   };
 
-  return <View style={styles.container}>{renderContent()}</View>;
+  return <View style={styles.container(theme)}>{renderContent()}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -161,10 +163,12 @@ const styles = StyleSheet.create({
     // backgroundColor: theme.colors.border,
     // flex: 1,
   }),
-  container: {
+  container: theme => ({
     flex: 1,
-   
-  },
+    // products listed -> background color
+    backgroundColor: theme.colors.lightGrey
+
+  }),
   notFoundTextWrap: {
     flex: 1,
     justifyContent: 'center',
@@ -234,9 +238,9 @@ ProductList.propTypes = {
 };
 
 ProductList.defaultProps = {
-  onRowPress: () => {},
+  onRowPress: () => { },
   performSort: () => console.log('Perform Sort function not sent in props'),
-  onEndReached: () => {},
+  onEndReached: () => { },
   refreshControl: <></>,
   searchIndicator: false,
 };

@@ -44,9 +44,8 @@ const OrderScreen = ({
         />
         <View>
           <Text bold>{item.item.name}</Text>
-          <Text type="label">{`${translate('common.sku')}: ${
-            item.item.sku
-          }`}</Text>
+          <Text type="label">{`${translate('common.sku')}: ${item.item.sku
+            }`}</Text>
           <View style={styles.row}>
             <Text type="label">{`${translate('common.price')}: `}</Text>
             <Price
@@ -55,9 +54,8 @@ const OrderScreen = ({
               basePrice={item.item.price}
             />
           </View>
-          <Text type="label">{`${translate('common.quantity')}: ${
-            item.item.qty_ordered
-          }`}</Text>
+          <Text type="label">{`${translate('common.quantity')}: ${item.item.qty_ordered
+            }`}</Text>
           <View style={styles.row}>
             <Text type="label">{`${translate('common.subTotal')}: `}</Text>
             <Price
@@ -80,9 +78,8 @@ const OrderScreen = ({
         renderItem={renderItem}
         keyExtractor={(_item, index) => index.toString()}
       />
-      <Text type="label">{`${translate('orderListItem.status')}: ${
-        item.status
-      }`}</Text>
+      <Text type="label">{`${translate('orderListItem.status')}: ${item.status
+        }`}</Text>
       <View style={styles.row}>
         <Text type="label">{`${translate('common.subTotal')}: `}</Text>
         <Price
@@ -116,14 +113,14 @@ const OrderScreen = ({
 };
 
 OrderScreen.navigationOptions = ({ navigation }) => ({
-  title: `${translate('common.order')} # ${
-    navigation.state.params.item.increment_id
-  }`,
+  title: `${translate('common.order')} # ${navigation.state.params.item.increment_id
+    }`,
 });
 
 const styles = StyleSheet.create({
   container: theme => ({
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
     padding: theme.spacing.large,
     flex: 1,
   }),

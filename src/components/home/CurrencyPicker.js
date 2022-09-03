@@ -47,6 +47,8 @@ const styles = {
   currencyContainer: {
     width: 80,
     marginEnd: 10,
+    // backgroundColor: 'black'
+    backgroundColor: "#f3f4f6"
   },
 };
 

@@ -4351,6 +4351,15 @@ hulupay-core-rn@../hulupay-core-rn/:
     react-native-base64 "^0.2.1"
     whatwg-url "^11.0.0"
 
+hulupay-core-rn@../updated-hulupay-core-rn/hulupay-core-rn/:
+  version "0.1.0"
+  dependencies:
+    axios "^0.25.0"
+    qs "^6.10.3"
+    querystring "^0.2.1"
+    react-native-base64 "^0.2.1"
+    whatwg-url "^11.0.0"
+
 human-signals@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
@@ -6702,6 +6711,11 @@ react-native-icon-badge@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/react-native-icon-badge/-/react-native-icon-badge-1.1.3.tgz#43de0c923afe4968dfcff127ec5c57057b16f787"
   integrity sha1-Q94Mkjr+SWjfz/En7FxXBXsW94c=
+
+react-native-image-slider-show@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-slider-show/-/react-native-image-slider-show-1.0.3.tgz#4df4c0ba520074f7a5513cca9a83ea48ac8868a5"
+  integrity sha512-9Tysqt4Q1I2OIYN1hJ+291Axy9JwsKFpr1a4uxu9uDMLGgkYsOLhbsMdgj7qVBmtLWZDQ9Kr45r+LNIRmmSvGg==
 
 react-native-iphone-x-helper@^1.3.0:
   version "1.3.1"

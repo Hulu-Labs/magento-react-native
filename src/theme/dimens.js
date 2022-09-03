@@ -21,6 +21,10 @@ export default {
    */
   homeProductImageWidth: 80,
   homeProductImageHeight: 80,
+  // modified width and height for home page - START
+  homeProductImageWidth2: 200,
+  homeProductImageHeight2: 200,
+  // END
   /**
    * SeacrhScreen and it's component related constants
    */
@@ -35,10 +39,14 @@ export default {
    * CartScreen and it's component related constants
    */
   cartItemImageHeight: 100,
+  cartItemImageHeight2: 300,
+
   /**
    * Product screen and it's component related constants
    */
   productDetailImageHeight: 300,
+  productDetailImageWidth: 300,
+
   /**
    * Checkout Screen and it's component related constants
    */

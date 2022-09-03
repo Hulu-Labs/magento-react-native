@@ -37,9 +37,9 @@ const Price = ({
         style={styles.discountPriceText(
           theme,
         )}>{`${currencySymbol} ${formatPrice(
-        discountPrice,
-        currencyRate,
-      )}`}</Text>
+          discountPrice,
+          currencyRate,
+        )}`}</Text>
     );
 
   return (
@@ -64,10 +64,14 @@ const styles = {
   },
   discountPriceText: theme => ({
     marginEnd: theme.spacing.tiny,
+    color: "#0F8ACB"
+
   }),
   basePriceText: (basePrice, discountPrice) => ({
     textDecorationLine:
       discountPrice && discountPrice < basePrice ? 'line-through' : 'none',
+    color: "#0F8ACB"
+
   }),
 };
 

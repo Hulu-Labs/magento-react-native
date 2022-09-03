@@ -19,34 +19,43 @@ const OrderListItem = ({ item }) => {
   };
 
   return (
-    <TouchableOpacity onPress={openOrdersScreen}>
-      <View style={styles.container(theme)}>
-        <Text bold>{`${translate('common.order')} # ${
-          item.increment_id
-        }`}</Text>
-        <Text type="label">{`${translate('orderListItem.created')}: ${
-          item.created_at
-        }`}</Text>
-        <Text type="label">
-          {`${translate('orderListItem.shipTo')} ${item.customer_firstname} ${
-            item.customer_lastname
-          }`}
-        </Text>
-        <View style={styles.row}>
+    <View>
+      <Text type="label">
+        {`
+        ${item.created_at
+          }`}</Text>
+      <TouchableOpacity onPress={openOrdersScreen}>
+        <View style={styles.container(theme)}>
+          <Text bold>{`${translate('common.order')} # ${item.increment_id
+            }`}</Text>
+          {/*
+          Orginal - created at - moved above the box
+
+          <Text type="label">{`${translate('orderListItem.created')}: ${
+            item.created_at
+          }`}</Text> 
+          
+        */}
           <Text type="label">
-            {`${translate('orderListItem.orderTotal')}: `}
+            {`${translate('orderListItem.shipTo')} ${item.customer_firstname} ${item.customer_lastname
+              }`}
           </Text>
-          <Price
-            basePrice={item.grand_total}
-            currencySymbol={currencySymbol}
-            currencyRate={1}
-          />
+          <View style={styles.row}>
+            <Text type="label">
+              {`${translate('orderListItem.orderTotal')}: `}
+            </Text>
+            <Price
+              basePrice={item.grand_total}
+              currencySymbol={currencySymbol}
+              currencyRate={1}
+            />
+          </View>
+          <Text type="label">{`${translate('orderListItem.status')}: ${item.status
+            }`}</Text>
         </View>
-        <Text type="label">{`${translate('orderListItem.status')}: ${
-          item.status
-        }`}</Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
+
   );
 };
 
@@ -59,6 +68,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: theme.colors.border,
     flex: 1,
+    margin: 10,
+    borderRadius: 20,
+    padding: 20
   }),
   row: {
     flexDirection: 'row',

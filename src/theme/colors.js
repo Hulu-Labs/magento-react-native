@@ -69,11 +69,15 @@ export default {
   black: '#000000',
   white: '#ffffff',
 
-  customColor1:'#70bfe1',
-  customColor2:'#00b4ff',
-  customColor3:'#fafafa',
+  lightGrey: '#f3f4f6',          /** hulugebeya screen background **/
+
+
+  customColor1: '#70bfe1',
+  customColor2: '#00b4ff',
+  customColor3: '#fafafa',
   customColor4: '#b0e2ff',
   test: '#0F8ACB',
   disabled1: '#9CD8F8',
-  grey:'#808080'
+  grey: '#808080',
+  darkGrey: '#CFCFCF'
 };

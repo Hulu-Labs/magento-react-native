@@ -30,6 +30,10 @@ class CheckoutCustomerAccount extends Component {
       this.updateUI('lastname', customer.lastname);
       this.updateUI('email', customer.email);
     }
+    this.updateUI('countryId', "ET");
+    this.updateUI('region', 'Addis Ababa');
+    this.updateUI('city', 'Addis Ababa');
+    this.updateUI()
     if (customer && customer.addresses && customer.addresses.length) {
       const address = customer.addresses[0];
       const regionData = address.region;
@@ -95,13 +99,13 @@ class CheckoutCustomerAccount extends Component {
     const regionValue =
       typeof region === 'object'
         ? {
-            region: region.region,
-            regionId: region.regionId,
-            regionCode: region.regionCode,
-          }
+          region: region.region,
+          regionId: region.regionId,
+          regionCode: region.regionCode,
+        }
         : {
-            region,
-          };
+          region,
+        };
 
     const address = {
       address: {
@@ -151,6 +155,7 @@ class CheckoutCustomerAccount extends Component {
 
   countrySelect(attributeId, optionValue) {
     this.props.updateCheckoutUI('countryId', optionValue);
+
   }
 
   regionSelect(attributeId, selectedRegion) {
@@ -225,7 +230,8 @@ class CheckoutCustomerAccount extends Component {
       <Input
         // label={translate('common.region')}
         value={regionValue}
-        placeholder={translate('common.region')}
+        // placeholder={translate('common.region')}
+        placeholder="City"
         onChangeText={value => this.updateUI('region', value)}
         name="map-pin"
         containerStyle={styles.inputContainer(theme)}
@@ -234,12 +240,12 @@ class CheckoutCustomerAccount extends Component {
     );
   }
 
-  renderCountries () {
+  renderCountries() {
     const { countries, countryId } = this.props;
 
     const theme = this.context;
 
-    if(!countries || !countries.length){
+    if (!countries || !countries.length) {
       return (
         <Input
           // label={translate('common.country')}
@@ -252,7 +258,7 @@ class CheckoutCustomerAccount extends Component {
         />
       );
     }
-    
+
 
     const data = countries.map(value => ({
       label: value.full_name_locale,
@@ -260,11 +266,11 @@ class CheckoutCustomerAccount extends Component {
     }));
 
     const country = countries.find(item => item.id === countryId);
- 
+
 
     const label = country
-    ? country.full_name_locale
-    : translate('common.country');
+      ? country.full_name_locale
+      : translate('common.country');
 
     return (
       <ModalSelect
@@ -286,21 +292,12 @@ class CheckoutCustomerAccount extends Component {
     if (this.props.customer) {
       return;
     }
-   const theme = this.context;
+    const theme = this.context;
     return (
       <View>
-        <Input
-          autoCapitalize="none"
-          // label={translate('common.email')}
-          name="envelope-o"
-          value={this.props.email}
-          placeholder={translate('common.email')}
-          onChangeText={value => this.updateUI('email', value)}
-          containerStyle={styles.inputContainer(theme)}
 
-        />
 
-        <Input
+        {/* <Input
           secureTextEntry
           // label={translate('common.password')}
           value={this.props.password}
@@ -309,7 +306,7 @@ class CheckoutCustomerAccount extends Component {
           containerStyle={styles.inputContainer(theme)}
           name="lock"
 
-        />
+        /> */}
 
         <Input
           // label={translate('common.firstName')}
@@ -330,6 +327,18 @@ class CheckoutCustomerAccount extends Component {
           name="user"
 
         />
+
+        <Input
+          autoCapitalize="none"
+          // label={translate('common.email')}
+          name="envelope-o"
+          value={this.props.email}
+          placeholder={translate('common.email')}
+          onChangeText={value => this.updateUI('email', value)}
+          containerStyle={styles.inputContainer(theme)}
+
+        />
+
       </View>
     );
   }
@@ -345,9 +354,21 @@ class CheckoutCustomerAccount extends Component {
         {this.renderRegions()}
 
         <Input
+          // label={translate('common.city')}
+          value={this.props.city}
+          // placeholder={translate('common.city')}
+          placeholder="Zone"
+          onChangeText={value => this.updateUI('city', value)}
+          containerStyle={styles.inputContainer(theme)}
+          name="location-arrow"
+
+        />
+
+        <Input
           // label={translate('common.postcode')}
           value={this.props.postcode}
-          placeholder={translate('common.postcode')}
+          // placeholder={translate('common.postcode')}
+          placeholder="woreda"
           onChangeText={value => this.updateUI('postcode', value)}
           containerStyle={styles.inputContainer(theme)}
           name="envelope-open-o"
@@ -357,20 +378,11 @@ class CheckoutCustomerAccount extends Component {
         <Input
           // label={translate('common.street')}
           value={this.props.street}
-          placeholder={translate('common.street')}
+          // placeholder={translate('common.street')}
+          placeholder="House No."
           onChangeText={value => this.updateUI('street', value)}
           containerStyle={styles.inputContainer(theme)}
           name="street-view"
-
-        />
-
-        <Input
-          // label={translate('common.city')}
-          value={this.props.city}
-          placeholder={translate('common.city')}
-          onChangeText={value => this.updateUI('city', value)}
-          containerStyle={styles.inputContainer(theme)}
-          name="location-arrow"
 
         />
 
@@ -381,7 +393,7 @@ class CheckoutCustomerAccount extends Component {
           onChangeText={value => this.updateUI('telephone', value)}
           containerStyle={styles.inputContainer(theme)}
           name="mobile"
-          
+
 
         />
 
@@ -400,12 +412,11 @@ const styles = StyleSheet.create({
     padding: theme.spacing.large,
     // width: '80%',
     // backgroundColor: '#fafafa',
-   
-    
+
   }),
   inputContainer: theme => ({
     width: theme.dimens.WINDOW_WIDTH * 0.9,
-    height:50,
+    height: 50,
     marginBottom: theme.spacing.large,
   }),
   errorTextStyle: theme => ({
