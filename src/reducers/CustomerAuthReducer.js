@@ -16,7 +16,8 @@ const INITIAL_STATE = {
   /**
    * Login/Signin Screen
    */
-  error: null,
+  error_login: null,
+  error_signup: null,
   success: null,
   loading: false,
   /**
@@ -53,7 +54,8 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: action.payload,
-        error: null,
+        error_login: null,
+        error_signup: null,
         success: null,
       };
     case MAGENTO_CREATE_CUSTOMER_SUCCESS:
@@ -61,20 +63,26 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         customer: action.payload,
       };
+    case MAGENTO_CREATE_CUSTOMER_ERROR:
+        return {
+          ...state,
+          error_signup: action.payload,
+      };
     case MAGENTO_AUTH:
       return { ...state, token: action.payload };
     case MAGENTO_AUTH_ERROR:
-      return { ...state, error: action.payload };
+      return { ...state, error_login: action.payload };
     case MAGENTO_AUTH_LOADING: {
       if (action.payload) {
         return {
           ...state,
           loading: action.payload,
-          error: null,
+          error_login: null,
+          error_signup: null,
           success: null,
         };
       }
-      return { ...state, loading: action.payload };
+      return { ...state, loading: action.payload};
     }
     default:
       return state;

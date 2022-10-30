@@ -30,6 +30,10 @@ class CheckoutCustomerAccount extends Component {
       this.updateUI('lastname', customer.lastname);
       this.updateUI('email', customer.email);
     }
+    this.updateUI('countryId', "ET");
+    this.updateUI('region', 'Addis Ababa');
+    this.updateUI('city', 'Addis Ababa');
+    this.updateUI()
     if (customer && customer.addresses && customer.addresses.length) {
       const address = customer.addresses[0];
       const regionData = address.region;
@@ -95,13 +99,13 @@ class CheckoutCustomerAccount extends Component {
     const regionValue =
       typeof region === 'object'
         ? {
-            region: region.region,
-            regionId: region.regionId,
-            regionCode: region.regionCode,
-          }
+          region: region.region,
+          regionId: region.regionId,
+          regionCode: region.regionCode,
+        }
         : {
-            region,
-          };
+          region,
+        };
 
     const address = {
       address: {
@@ -151,6 +155,7 @@ class CheckoutCustomerAccount extends Component {
 
   countrySelect(attributeId, optionValue) {
     this.props.updateCheckoutUI('countryId', optionValue);
+
   }
 
   regionSelect(attributeId, selectedRegion) {
@@ -185,6 +190,8 @@ class CheckoutCustomerAccount extends Component {
 
   renderRegions() {
     const { countryId, countries, region } = this.props;
+    const theme = this.context;
+
     if (countryId && countryId.length && countries && countries.length) {
       const country = countries.find(item => item.id === countryId);
       if (country && country.available_regions) {
@@ -207,6 +214,9 @@ class CheckoutCustomerAccount extends Component {
             value={translate('common.region')}
             data={data}
             onChange={this.regionSelect.bind(this)}
+            style={styles.inputContainer(theme)}
+            name="flag"
+
           />
         );
       }
@@ -218,10 +228,14 @@ class CheckoutCustomerAccount extends Component {
         : this.props.region.region;
     return (
       <Input
-        label={translate('common.region')}
+        // label={translate('common.region')}
         value={regionValue}
-        placeholder={translate('common.region')}
+        // placeholder={translate('common.region')}
+        placeholder="City"
         onChangeText={value => this.updateUI('region', value)}
+        name="map-pin"
+        containerStyle={styles.inputContainer(theme)}
+
       />
     );
   }
@@ -229,16 +243,22 @@ class CheckoutCustomerAccount extends Component {
   renderCountries() {
     const { countries, countryId } = this.props;
 
+    const theme = this.context;
+
     if (!countries || !countries.length) {
       return (
         <Input
-          label={translate('common.country')}
+          // label={translate('common.country')}
           value={this.props.country}
           placeholder={translate('common.country')}
           onChangeText={value => this.updateUI('country', value)}
+          name="flag-checkered"
+          containerStyle={styles.inputContainer(theme)}
+
         />
       );
     }
+
 
     const data = countries.map(value => ({
       label: value.full_name_locale,
@@ -246,6 +266,8 @@ class CheckoutCustomerAccount extends Component {
     }));
 
     const country = countries.find(item => item.id === countryId);
+
+
     const label = country
       ? country.full_name_locale
       : translate('common.country');
@@ -260,6 +282,8 @@ class CheckoutCustomerAccount extends Component {
         value={translate('common.country')}
         data={data}
         onChange={this.countrySelect.bind(this)}
+        style={styles.inputContainer(theme)}
+        name="flag"
       />
     );
   }
@@ -268,38 +292,53 @@ class CheckoutCustomerAccount extends Component {
     if (this.props.customer) {
       return;
     }
-
+    const theme = this.context;
     return (
       <View>
-        <Input
-          autoCapitalize="none"
-          label={translate('common.email')}
-          value={this.props.email}
-          placeholder={translate('common.email')}
-          onChangeText={value => this.updateUI('email', value)}
-        />
 
-        <Input
+
+        {/* <Input
           secureTextEntry
-          label={translate('common.password')}
+          // label={translate('common.password')}
           value={this.props.password}
           placeholder={translate('common.password')}
           onChangeText={value => this.updateUI('password', value)}
-        />
+          containerStyle={styles.inputContainer(theme)}
+          name="lock"
+
+        /> */}
 
         <Input
-          label={translate('common.firstName')}
+          // label={translate('common.firstName')}
           value={this.props.firstname}
           placeholder={translate('common.firstName')}
           onChangeText={value => this.updateUI('firstname', value)}
+          containerStyle={styles.inputContainer(theme)}
+          name="user"
+
         />
 
         <Input
-          label={translate('common.lastName')}
+          // label={translate('common.lastName')}
           value={this.props.lastname}
           placeholder={translate('common.lastName')}
           onChangeText={value => this.updateUI('lastname', value)}
+          containerStyle={styles.inputContainer(theme)}
+          name="user"
+
         />
+
+        <Input
+          autoCapitalize="none"
+          // label={translate('common.email')}
+          name="envelope-o"
+          value={this.props.email}
+          placeholder={translate('common.email')}
+          onChangeText={value => this.updateUI('email', value)}
+          containerStyle={styles.inputContainer(theme)}
+
+        />
+
       </View>
     );
   }
@@ -315,31 +354,47 @@ class CheckoutCustomerAccount extends Component {
         {this.renderRegions()}
 
         <Input
-          label={translate('common.postcode')}
-          value={this.props.postcode}
-          placeholder={translate('common.postcode')}
-          onChangeText={value => this.updateUI('postcode', value)}
-        />
-
-        <Input
-          label={translate('common.street')}
-          value={this.props.street}
-          placeholder={translate('common.street')}
-          onChangeText={value => this.updateUI('street', value)}
-        />
-
-        <Input
-          label={translate('common.city')}
+          // label={translate('common.city')}
           value={this.props.city}
-          placeholder={translate('common.city')}
+          // placeholder={translate('common.city')}
+          placeholder="Zone"
           onChangeText={value => this.updateUI('city', value)}
+          containerStyle={styles.inputContainer(theme)}
+          name="location-arrow"
+
         />
 
         <Input
-          label={translate('common.telephone')}
+          // label={translate('common.postcode')}
+          value={this.props.postcode}
+          // placeholder={translate('common.postcode')}
+          placeholder="woreda"
+          onChangeText={value => this.updateUI('postcode', value)}
+          containerStyle={styles.inputContainer(theme)}
+          name="envelope-open-o"
+
+        />
+
+        <Input
+          // label={translate('common.street')}
+          value={this.props.street}
+          // placeholder={translate('common.street')}
+          placeholder="House No."
+          onChangeText={value => this.updateUI('street', value)}
+          containerStyle={styles.inputContainer(theme)}
+          name="street-view"
+
+        />
+
+        <Input
+          // label={translate('common.telephone')}
           value={this.props.telephone}
           placeholder={translate('common.telephone')}
           onChangeText={value => this.updateUI('telephone', value)}
+          containerStyle={styles.inputContainer(theme)}
+          name="mobile"
+
+
         />
 
         <Text type="heading" style={styles.errorTextStyle(theme)}>
@@ -355,6 +410,14 @@ class CheckoutCustomerAccount extends Component {
 const styles = StyleSheet.create({
   container: theme => ({
     padding: theme.spacing.large,
+    // width: '80%',
+    // backgroundColor: '#fafafa',
+
+  }),
+  inputContainer: theme => ({
+    width: theme.dimens.WINDOW_WIDTH * 0.9,
+    height: 50,
+    marginBottom: theme.spacing.large,
   }),
   errorTextStyle: theme => ({
     color: theme.colors.error,

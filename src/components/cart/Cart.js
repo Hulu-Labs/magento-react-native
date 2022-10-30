@@ -182,10 +182,11 @@ class Cart extends Component {
 const styles = StyleSheet.create({
   container: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
+
   }),
   containerStyle: theme => ({
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

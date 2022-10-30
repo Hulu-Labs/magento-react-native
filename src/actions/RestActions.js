@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import _ from 'lodash';
+import _, { keyBy } from 'lodash';
 import { magento } from '../magento';
 import { magentoOptions } from '../config/magento';
+// import { getGuestCartItems } from '../magento/lib/guest';
 import {
   MAGENTO_INIT,
   MAGENTO_INIT_ERROR,
@@ -432,6 +433,7 @@ export const resetCart = () => {
   };
 };
 
+
 export const getCart =
   (refreshing = false) =>
   async (dispatch, getState) => {
@@ -443,16 +445,34 @@ export const getCart =
     }
 
     try {
-      let cart;
+      let cart, items, data;
+      var  tempItem = {}, tempItems = [], cart_id;
       let cartId = await AsyncStorage.getItem('cartId');
+      console.log(" cart id in getcart ()                  " + cartId);
       if (magento.isCustomerLogin()) {
+
+
+        const customer = await magento.customer.getCurrentCustomer();
+        console.log(" customer id i s                   " + customer.id);
+        
+        
+
         if (cartId) {
           /*Merge Cart*/
           /*the code to merge cart will be here*/
-
+          console.log("        get cart   " + cartId)
+          // guest cart merge with logged in customer cart api
+              await magento.customer.assignGuestCartToCustomer(
+              cartId,
+              customer.id,
+            );
+            console.log(" here i am                       check")
+         
           AsyncStorage.removeItem('cartId');
         }
+
         cart = await magento.customer.getCustomerCart();
+
       } else {
         if (cartId) {
           try {

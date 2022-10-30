@@ -93,6 +93,7 @@ Category.navigationOptions = ({ navigation }) => ({
   title: navigation.state.params.title.toUpperCase(),
   headerBackTitle: ' ',
   headerRight: () => <HeaderGridToggleIcon />,
+  
 });
 
 const styles = {

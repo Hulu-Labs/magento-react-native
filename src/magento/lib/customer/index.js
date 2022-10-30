@@ -1,6 +1,19 @@
+import { magento } from '../..';
 import { CUSTOMER_TYPE } from '../../types';
 
 export default magento => ({
+//   {URL}/rest/V1/guest-carts/{guest-card-id}
+// Param - {
+//   "customerId": 3,
+//   "storeId": 1
+// }
+ assignGuestCartToCustomer: (cartId, customerId, storeId = 1) => magento.put(
+    `/V1/guest-carts/${cartId}`, {
+      customerId,
+      storeId: storeId || magento.configuration.store,
+    },
+    CUSTOMER_TYPE,
+  ), 
   getCurrentCustomer: () =>
     magento.get('/V1/customers/me', undefined, undefined, CUSTOMER_TYPE),
 

@@ -79,14 +79,6 @@ export default magento => ({
   getCountries: () =>
     magento.get('/V1/directory/countries', undefined, undefined, GUEST_TYPE),
 
-  getCountriesByCountryId: countryId =>
-    magento.get(
-      `/V1/directory/countries/${countryId}`,
-      undefined,
-      undefined,
-      GUEST_TYPE,
-    ),
-
   createCustomer: customer =>
     magento.post('/V1/customers', customer, GUEST_TYPE),
 

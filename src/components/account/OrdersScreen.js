@@ -7,6 +7,7 @@ import { Text } from '../common';
 import OrderListItem from './OrderListItem';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
+import moment from 'moment'
 
 import { NAVIGATION_HOME_SCREEN_PATH } from '../../navigation/routes';
 
@@ -74,13 +75,15 @@ OrdersScreen.navigationOptions = () => ({
 const styles = {
   container: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
   }),
   emptyListContainerStyle: theme => ({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
   }),
   textStyle: theme => ({
     paddingTop: theme.spacing.small,

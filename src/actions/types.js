@@ -60,6 +60,7 @@ export const MAGENTO_LOGOUT = 'magento_logout';
 export const MAGENTO_CART_RESET = 'MAGENTO_CART_RESET';
 export const MAGENTO_LOGIN_SUCCESS = 'magento_login_success';
 export const MAGENTO_AUTH_ERROR = 'magento_auth_error';
+
 export const MAGENTO_AUTH_LOADING = 'magento_auth_loading';
 export const MAGENTO_PASSWORD_RESET_LOADING = 'magento_password_reset_loading';
 export const MAGENTO_PASSWORD_RESET_SUCCESS = 'magento_password_reset_success';
@@ -128,3 +129,8 @@ export const MAGENTO_RELATED_PRODUCTS_CONF_PRODUCT =
   'magento_related_products_conf_product_update';
 
 export const MAGENTO_PRODUCT_RATING_OPTIONS = 'MAGENTO_PRODUCT_RATING_OPTIONS';
+
+
+
+
+// export const MAGENTO_CREATE_CUSTOMER_ERROR = 'MAGENTO_CREATE_CUSTOMER_ERROR';

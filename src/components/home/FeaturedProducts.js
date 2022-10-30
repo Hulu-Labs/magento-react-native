@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity, ScrollView, Button } from 'react-native';
 import { Text } from '../common';
 import FeaturedProductItem from './FeaturedProductItem';
 import { ThemeContext } from '../../theme';
@@ -15,19 +15,31 @@ const FeaturedProducts = ({
 }) => {
   const theme = useContext(ThemeContext);
 
-  const keyExtractor = item => item.id.toString();
+
+
+  const keyExtractor = item => { item.id.toString(); };
 
   return (
     <View style={[styles.container(theme), style]}>
-      <Text type="heading" style={styles.title}>
-        {title}
-      </Text>
+      {/* <Text type="heading" style={styles.title}>
+        {title} 
+      </Text> */}
+
+      <View style={{ paddingRight: 30, paddingLeft: 30, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text type="heading" style={styles.title}>
+          {title}
+        </Text>
+        <TouchableOpacity  >
+          <Text style={{ marginTop: 20 }}>See more</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
         horizontal
         data={products.items}
         keyExtractor={keyExtractor}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
+
           <FeaturedProductItem
             product={item}
             currencySymbol={currencySymbol}
@@ -37,6 +49,8 @@ const FeaturedProducts = ({
         )}
       />
     </View>
+
+
   );
 };
 
@@ -54,13 +68,19 @@ FeaturedProducts.defaultProps = {
   style: {},
 };
 
+
 const styles = StyleSheet.create({
   container: theme => ({
-    height: theme.dimens.WINDOW_HEIGHT * 0.3,
-    paddingTop: 10,
+    height: theme.dimens.WINDOW_HEIGHT * 0.5,
+    // width: theme.dimens.WINDOW_WIDTH * 0.5,
+    // paddingTop: 1
+
+
   }),
   title: {
-    textAlign: 'center',
+    textAlign: 'left',
+    marginTop: 20,
+    color: 'black'
   },
 });
 

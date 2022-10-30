@@ -13,6 +13,8 @@ const INITIAL_STATE = {
   magento: null,
   storeConfig: null,
   countries: null,
+  countryName: null,
+  cart: [],
   currency: {
     default_display_currency_code: '',
     default_display_currency_symbol: '',

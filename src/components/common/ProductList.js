@@ -45,6 +45,7 @@ const ProductList = ({
   const selector = useRef(null);
 
   const renderItemRow = ({ item, index }) => (
+
     <ProductListItem
       imageStyle={styles.imageStyle}
       viewContainerStyle={{ flex: 1 }}
@@ -59,11 +60,11 @@ const ProductList = ({
     <ProductListItem
       viewContainerStyle={{
         width: theme.dimens.WINDOW_WIDTH / COLUMN_COUNT,
-        borderRightColor: theme.colors.border,
-        borderRightWidth:
-          index % COLUMN_COUNT !== COLUMN_COUNT - 1
-            ? theme.dimens.productListItemInBetweenSpace
-            : 0,
+        // borderRightColor: theme.colors.border,
+        // borderRightWidth:
+        //   index % COLUMN_COUNT !== COLUMN_COUNT - 1
+        //     ? theme.dimens.productListItemInBetweenSpace
+        //     : 0,
       }}
       columnContainerStyle={styles.columnContainerStyle}
       textStyle={styles.textStyle}
@@ -77,6 +78,7 @@ const ProductList = ({
 
   const renderHeader = () => (
     <View style={styles.headerContainerStyle(theme)}>
+
       <ModalSelector
         style={styles.iconWrapper(theme)}
         data={sortData}
@@ -152,18 +154,21 @@ const ProductList = ({
     }
   };
 
-  return <View style={styles.container}>{renderContent()}</View>;
+  return <View style={styles.container(theme)}>{renderContent()}</View>;
 };
 
 const styles = StyleSheet.create({
   itemSeparator: theme => ({
-    height: theme.dimens.productListItemInBetweenSpace,
-    backgroundColor: theme.colors.border,
-    flex: 1,
+    // height: theme.dimens.productListItemInBetweenSpace,
+    // backgroundColor: theme.colors.border,
+    // flex: 1,
   }),
-  container: {
+  container: theme => ({
     flex: 1,
-  },
+    // products listed -> background color
+    backgroundColor: theme.colors.lightGrey
+
+  }),
   notFoundTextWrap: {
     flex: 1,
     justifyContent: 'center',
@@ -209,7 +214,7 @@ const styles = StyleSheet.create({
     marginLeft: theme.spacing.small,
   }),
   separator: theme => ({
-    width: 1,
+    // width: 1,
     backgroundColor: theme.colors.border,
     marginVertical: theme.spacing.small,
   }),
@@ -233,9 +238,9 @@ ProductList.propTypes = {
 };
 
 ProductList.defaultProps = {
-  onRowPress: () => {},
+  onRowPress: () => { },
   performSort: () => console.log('Perform Sort function not sent in props'),
-  onEndReached: () => {},
+  onEndReached: () => { },
   refreshControl: <></>,
   searchIndicator: false,
 };

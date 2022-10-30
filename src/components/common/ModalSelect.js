@@ -4,18 +4,15 @@ import ModalSelector from 'react-native-modal-selector';
 import PropTypes from 'prop-types';
 import { Input } from './Input';
 
-const ModalSelect = ({
-  data,
-  disabled,
-  label,
-  onChange,
-  attribute,
-  style,
-  withLabel = true,
-}) => {
+const ModalSelect = ({ data, disabled, label, onChange, attribute, style, withLabel = true, name }) => {
   const [value, setValue] = useState('');
 
   const _onChange = option => {
+    // setValue(
+    //   attribute === 'CurrencyCode'
+    //     ? option.label
+    //     : `${label} : ${option.label}`,
+    // );
     setValue(!withLabel ? option.label : `${label} : ${option.label}`);
 
     if (onChange) {
@@ -35,6 +32,7 @@ const ModalSelect = ({
           editable={false}
           placeholder={label}
           value={value}
+          name={name}
         />
       </ModalSelector>
     </View>

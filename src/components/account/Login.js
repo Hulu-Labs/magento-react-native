@@ -1,10 +1,13 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useRef, Component } from 'react';
 import {
   View,
   StyleSheet,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Dimensions,
+  Image,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,19 +19,25 @@ import {
 } from '../../navigation/routes';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Login = ({ loading, error, success, navigation, auth: _auth }) => {
+
+const Login = ({ loading, error_login, success, navigation, auth: _auth }) => {
+
+
+
+
   const theme = useContext(ThemeContext);
   // Internal State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isClicked, setIsClicked] = useState(false);
   // Reference
   const passwordInput = useRef();
 
   const onLoginPress = () => {
     _auth(email, password);
   };
-
   const onSigninPress = () => {
     navigation.navigate(NAVIGATION_SIGNIN_PATH);
   };
@@ -46,6 +55,7 @@ const Login = ({ loading, error, success, navigation, auth: _auth }) => {
       <View>
         <Button
           disabled={email === '' || password === ''}
+          style={styles.loginMargin(theme)}
           onPress={onLoginPress}>
           {translate('login.loginButton')}
         </Button>
@@ -61,53 +71,86 @@ const Login = ({ loading, error, success, navigation, auth: _auth }) => {
     );
   };
 
+
   const renderMessages = () => {
-    if (error) {
-      return <Text style={styles.error(theme)}>{error}</Text>;
+
+    if (email === '' || password === '') {
+      if (error_login) {
+
+        error_login = "";
+        return;
+      }
     }
+
+    if (error_login) {
+      return <Text style={styles.error(theme)}>
+        {error_login}
+
+      </Text>;
+    }
+
 
     if (success) {
       return <Text style={styles.success(theme)}>{success}</Text>;
     }
+
+
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : null}
-      style={styles.container(theme)}>
-      <Input
-        autoCapitalize="none"
-        underlineColorAndroid="transparent"
-        placeholder={translate('common.email')}
-        keyboardType="email-address"
-        returnKeyType="next"
-        autoCorrect={false}
-        value={email}
-        editable={!loading}
-        onChangeText={setEmail}
-        onSubmitEditing={() => passwordInput.current.focus()}
-        containerStyle={styles.inputContainer(theme)}
-        textContentType="emailAddress"
-      />
-      <Input
-        autoCapitalize="none"
-        underlineColorAndroid="transparent"
-        secureTextEntry
-        placeholder={translate('common.password')}
-        autoCorrect={false}
-        value={password}
-        editable={!loading}
-        onChangeText={setPassword}
-        onSubmitEditing={onLoginPress}
-        assignRef={input => {
-          passwordInput.current = input;
-        }}
-        containerStyle={styles.inputContainer(theme)}
-        textContentType="password"
-      />
-      {renderButtons()}
-      {renderMessages()}
-    </KeyboardAvoidingView>
+    <ScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        style={styles.container(theme)}>
+        <View style={styles.bigCircle(theme)}></View>
+        <View style={styles.smallCircle(theme)}></View>
+        <View style={styles.centerizedView}>
+          <View style={styles.authBox(theme)}>
+            <View style={styles.logoBox}>
+              <Image source={require('../../../assets/logo.png')} style={styles.logo} />
+            </View>
+
+
+            <Input
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              placeholder={translate('common.email')}
+              keyboardType="email-address"
+              returnKeyType="next"
+              autoCorrect={false}
+              value={email}
+              editable={!loading}
+              onChangeText={setEmail}
+              onSubmitEditing={() => passwordInput.current.focus()}
+              containerStyle={styles.inputContainer(theme)}
+              textContentType="emailAddress"
+              name="envelope-o"
+            />
+
+
+            <Input
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              secureTextEntry
+              placeholder={translate('common.password')}
+              autoCorrect={false}
+              value={password}
+              editable={!loading}
+              onChangeText={setPassword}
+              onSubmitEditing={onLoginPress}
+              assignRef={input => {
+                passwordInput.current = input;
+              }}
+              containerStyle={styles.inputContainer(theme)}
+              textContentType="password"
+              name="lock"
+            />
+            {renderButtons()}
+            {renderMessages()}
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
@@ -121,22 +164,56 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     alignItems: 'center',
     paddingTop: theme.dimens.WINDOW_HEIGHT * 0.1,
+    justifyContent: 'center',
+    alignSelf: 'center',
   }),
   inputContainer: theme => ({
     width: theme.dimens.WINDOW_WIDTH * 0.7,
     marginBottom: theme.spacing.large,
+    // flex: 1,
+    // marginTop: 10,
+    // paddingRight: 10,
+    // paddingBottom: 10,
+    // paddingLeft: 0,
+    // backgroundColor: '#fff',
+    // color: '#424242',
+  }),
+  searchSection: {
+    // flex: 1,
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // backgroundColor: '#fff',
+    //   borderBottomWidth: 1,
+    // borderColor: '#000',
+    paddingBottom: 10,
+
+  },
+  searchIcon: {
+    padding: 10,
+  },
+  loginMargin: theme => ({
+    // marginTop: theme.spacing.large,
+    // backgroundColor: theme.colors.test,
+    // // borderColor: theme.colors.test,
+    // backgroundColor: theme.colors.background
+    // marginTop: 50
+
   }),
   buttonMargin: theme => ({
     marginTop: theme.spacing.large,
+    backgroundColor: theme.colors.test,
+    borderColor: theme.colors.test,
+    // backgroundColor: theme.colors.background
   }),
   error: theme => ({
     color: theme.colors.error,
-    width: theme.dimens.WINDOW_WIDTH * 0.85,
+    // width: theme.dimens.WINDOW_WIDTH * 0.83,
     textAlign: 'center',
     marginTop: theme.spacing.large,
   }),
   success: theme => ({
-    width: theme.dimens.WINDOW_WIDTH * 0.85,
+    // width: theme.dimens.WINDOW_WIDTH * 0.85,
     color: theme.colors.success,
     textAlign: 'center',
     marginTop: theme.spacing.extraLarge,
@@ -147,25 +224,89 @@ const styles = StyleSheet.create({
   linkTitle: {
     textAlign: 'center',
   },
+  bigCircle: theme => ({
+    width: Dimensions.get('window').height * 0.6,
+    height: Dimensions.get('window').height * 0.6,
+    // height: theme.dimens.WINDOW_HEIGHT * 0.6,
+    // width: theme.dimens.WINDOW_WIDTH * 0.6,
+    backgroundColor: '#2CB4FB',
+    borderRadius: 1000,
+    position: 'absolute',
+    right: Dimensions.get('window').width * 0.25,
+    // right: theme.dimens.WINDOW_WIDTH * 0.25,
+    top: -50,
+  }),
+  smallCircle: theme => ({
+    width: Dimensions.get('window').height * 0.4,
+    height: Dimensions.get('window').height * 0.4,
+    // height: theme.dimens.WINDOW_HEIGHT * 0.4,
+    // width: theme.dimens.WINDOW_WIDTH * 0.4,
+    backgroundColor: '#2CB4FB',
+    borderRadius: 1000,
+    position: 'absolute',
+    bottom: Dimensions.get('window').width * -0.3,
+    right: Dimensions.get('window').width * -0.4,
+    // right: theme.dimens.WINDOW_WIDTH * -0.3,
+    // bottom: theme.dimens.WINDOW_WIDTH * -0.2,
+  }),
+  centerizedView: {
+    width: '100%',
+    // top: '15%',
+    // left: '15%'
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  authBox: theme => ({
+    // width: '80%',
+    backgroundColor: '#fafafa',
+    borderRadius: 20,
+    alignSelf: 'center',
+    paddingHorizontal: 14,
+    paddingBottom: 30,
+    marginBottom: 165,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    width: theme.dimens.WINDOW_WIDTH * 0.8,
+    height: theme.dimens.WINDOW_HEIGHT * 0.6
+
+  }),
+  logo: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: 150,
+    height: 60,
+    // top: -30
+    marginBottom: 100,
+    //  bottom:50
+    top: 50
+
+  },
+
 });
 
 const mapStateToProps = ({ customerAuth }) => {
-  const { error, success, loading } = customerAuth;
+  const { error_login, success, loading } = customerAuth;
 
-  return { error, success, loading };
+  return { error_login, success, loading };
 };
 
 Login.propTypes = {
   loading: PropTypes.bool,
-  error: PropTypes.oneOfType(PropTypes.string, null),
+  error_login: PropTypes.oneOfType(PropTypes.string, null),
   success: PropTypes.oneOfType(PropTypes.string, null),
   auth: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {
-  error: null,
+  error_login: null,
   success: null,
   loading: false,
 };
 
-export default connect(mapStateToProps, { auth })(Login);
+export default connect(mapStateToProps, { auth, })(Login);

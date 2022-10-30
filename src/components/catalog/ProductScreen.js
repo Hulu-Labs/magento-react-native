@@ -117,6 +117,7 @@ export const ProductScreen = props => {
         keyboardType="numeric"
         value={`${currentProduct.qtyInput}`}
         onChangeText={qty => dispatch(updateProductQtyInput(qty, product.id))}
+        name="sort-amount-asc"
       />
       <ProductOptions
         product={product}
@@ -144,6 +145,7 @@ export const ProductScreen = props => {
           <ReviewFormContainer product={product} />
         </>
       )}
+
       <RelatedProducts
         product={product}
         currencyRate={currencyRate}
@@ -161,14 +163,15 @@ ProductScreen.navigationOptions = ({ navigation }) => ({
 const styles = StyleSheet.create({
   container: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey
   }),
   textStyle: theme => ({
     padding: theme.spacing.small,
     textAlign: 'center',
   }),
   inputContainer: theme => ({
-    width: 40,
+    width: 100,
     alignSelf: 'center',
     marginBottom: theme.spacing.extraLarge,
   }),

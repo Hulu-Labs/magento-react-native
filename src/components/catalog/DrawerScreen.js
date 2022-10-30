@@ -91,7 +91,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'stretch',
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
+
   }),
   InputContainer: theme => ({
     flexDirection: 'row',
@@ -100,10 +102,10 @@ const styles = StyleSheet.create({
     paddingVertical: theme.spacing.large,
   }),
   minInputStyle: {
-    width: 50,
+    width: 60,
   },
   maxInputStyle: {
-    width: 50,
+    width: 60,
   },
   textStyle: theme => ({
     paddingLeft: 50,
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
   buttonStyleWrap: {
     flex: 1,
     justifyContent: 'flex-end',
+    margin: 20
   },
 });
 

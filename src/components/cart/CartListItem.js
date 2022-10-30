@@ -97,9 +97,11 @@ const styles = {
   container: theme => ({
     flexDirection: 'row',
     flex: 1,
+    margin: 10,
     borderColor: theme.colors.border,
     borderBottomWidth: 1,
     backgroundColor: theme.colors.surface,
+    borderRadius: 10
   }),
   infoStyle: {
     flexDirection: 'column',

@@ -46,40 +46,49 @@ const FeaturedProductItem = ({
           resizeMode="contain"
           source={{ uri: imageURI }}
         />
-        <View style={styles.infoStyle}>
-          <Text
-            type="subheading"
-            style={themeStyles.text}
-            ellipsizeMode="tail"
-            numberOfLines={2}>
-            {product.name}
-          </Text>
-          <Price
-            basePrice={product.price}
-            discountPrice={price}
-            currencySymbol={currencySymbol}
-            currencyRate={currencyRate}
-          />
-        </View>
+
       </TouchableOpacity>
+
+      <View style={styles.infoStyle}>
+        <Text
+          type="subheading"
+          style={themeStyles.text}
+          ellipsizeMode="tail"
+          numberOfLines={2}>
+          {product.name}
+        </Text>
+        <Price
+          basePrice={product.price}
+          discountPrice={price}
+          currencySymbol={currencySymbol}
+          currencyRate={currencyRate}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: theme => ({
-    padding: theme.spacing.tiny,
-    width: theme.dimens.WINDOW_WIDTH * 0.32,
+    // padding: theme.spacing.tiny,
+    width: theme.dimens.WINDOW_WIDTH * 0.5,
+    // height: theme.dimens.WINDOW_HEIGHT * 0.6
+    paddingBottom: 30
+
+
   }),
   containerStyle: theme => ({
     flexDirection: 'column',
     flex: 1,
+    height: theme.dimens.WINDOW_HEIGHT * 0.5,
+
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
     borderRadius: theme.dimens.borderRadius,
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 10
   }),
   infoStyle: {
     flexDirection: 'column',
@@ -91,13 +100,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flexDirection: 'column',
     marginTop: theme.spacing.small,
+    fontSize: 14
   }),
   priceStyle: {
     textAlign: 'center',
   },
   imageStyle: theme => ({
-    height: theme.dimens.homeProductImageHeight,
-    width: theme.dimens.homeProductImageWidth,
+    height: theme.dimens.homeProductImageHeight2,
+    width: theme.dimens.homeProductImageWidth2,
   }),
 });
 

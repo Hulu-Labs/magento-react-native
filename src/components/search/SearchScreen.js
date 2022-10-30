@@ -115,10 +115,13 @@ class SearchScreen extends Component {
 const styles = {
   containerStyle: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
+
   }),
   searchStyle: theme => ({
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
     alignSelf: 'center',
     borderBottomWidth: 0,
     borderTopWidth: 0,

@@ -44,6 +44,7 @@ const CheckoutSection = ({
 const styles = {
   containerStyles: {
     flex: 1,
+    
   },
   headerStyles: theme => ({
     opacity: 1,
@@ -59,7 +60,7 @@ const styles = {
     backgroundColor: theme.colors.white,
   }),
   textBackground: {
-    backgroundColor: '#999',
+    backgroundColor: '#2CB4FB',
     height: 40,
     width: 40,
     borderRadius: 40,

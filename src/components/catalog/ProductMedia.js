@@ -16,7 +16,7 @@ const ProductMedia = props => {
       return <Spinner />;
     }
     return (
-      <Swiper showsPagination pagingEnabled autoplay={false}>
+      <Swiper showsPagination pagingEnabled autoplay={true}>
         {renderMediaItems()}
       </Swiper>
     );
@@ -44,6 +44,7 @@ const ProductMedia = props => {
 
 const styles = {
   imageContainer: theme => ({
+    marginTop: 10,
     height: theme.dimens.productDetailImageHeight,
   }),
   imageStyle: theme => ({

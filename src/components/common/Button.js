@@ -20,13 +20,14 @@ const Button = ({ onPress, children, style, disabled }) => {
 const styles = StyleSheet.create({
   buttonStyle: (theme, disabled) => ({
     borderWidth: 1,
-    backgroundColor: disabled ? theme.colors.disabled : theme.colors.secondary,
+    backgroundColor: disabled ? theme.colors.disabled1 : theme.colors.test,
     borderColor: disabled
-      ? theme.colors.disabledDark
-      : theme.colors.secondaryDark,
+      ? theme.colors.disabled1
+      : theme.colors.test,
     width: theme.dimens.defaultButtonWidth,
     height: theme.dimens.defaultButtonHeight,
     justifyContent: 'center',
+    borderRadius: 13
   }),
   buttonTitle: (theme, disabled) => ({
     color: disabled ? theme.colors.disabledDark : theme.colors.white,

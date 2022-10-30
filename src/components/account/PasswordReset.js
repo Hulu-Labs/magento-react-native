@@ -70,6 +70,7 @@ const PasswordReset = ({
         editable={!loading}
         onSubmitEditing={onResetPress}
         onChangeText={setEmail}
+        name="envelope"
       />
       {renderButtons()}
       {renderMessages()}
@@ -84,7 +85,8 @@ PasswordReset.navigationOptions = {
 const styles = StyleSheet.create({
   container: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.lightGrey,
     alignItems: 'center',
     paddingTop: theme.dimens.WINDOW_HEIGHT * 0.1,
   }),
